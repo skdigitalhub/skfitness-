@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Workout Plan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #08090f;
+            --sidebar-bg: rgba(20, 22, 35, 0.6);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-hover: rgba(255, 255, 255, 0.08);
+            --primary-accent: #00f0ff;
+            --secondary-accent: #7000ff;
+            --text-main: #ffffff;
+            --text-muted: #a0a5ba;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-blur: blur(16px);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); background-image: radial-gradient(circle at 15% 50%, rgba(112, 0, 255, 0.15), transparent 25%), radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.1), transparent 25%); color: var(--text-main); min-height: 100vh; display: flex; overflow: hidden; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-accent); }
+        .app-container { display: flex; width: 100%; height: 100vh; }
+        .sidebar { width: 280px; background: var(--sidebar-bg); backdrop-filter: var(--glass-blur); border-right: 1px solid var(--glass-border); padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 10; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 800; display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; padding-left: 1rem; background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+        .nav-links li { padding: 1rem 1.5rem; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: 500; display: flex; align-items: center; gap: 1rem; transition: all 0.3s ease; color: var(--text-muted); border: 1px solid transparent; }
+        .nav-links li:hover { background: var(--card-hover); color: var(--text-main); }
+        .nav-links li.active { background: linear-gradient(90deg, rgba(112, 0, 255, 0.2), transparent); color: var(--primary-accent); border-left: 4px solid var(--primary-accent); border-radius: 4px 12px 12px 4px; }
+        .main-content { flex: 1; padding: 3rem 4rem; overflow-y: auto; position: relative; scroll-behavior: smooth; }
+        .day-header { margin-bottom: 3rem; animation: fadeInDown 0.6s ease; }
+        .day-header h1 { font-family: 'Outfit', sans-serif; font-size: 4rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; text-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
+        .day-header p { font-size: 1.2rem; color: var(--primary-accent); font-weight: 500; letter-spacing: 1px; }
+        .exercises-container { display: flex; flex-direction: column; gap: 2rem; padding-bottom: 4rem; }
+        .exercise-card { display: flex; background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 24px; padding: 2rem; gap: 2.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; animation: fadeInUp 0.6s ease backwards; }
+        .exercise-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(112, 0, 255, 0.1); border-color: rgba(255, 255, 255, 0.15); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .exercise-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .exercise-name { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.2; }
+        .badges { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .badge { padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .badge.target { background: rgba(112, 0, 255, 0.2); color: #d6b3ff; border: 1px solid rgba(112, 0, 255, 0.4); }
+        .badge.sets { background: rgba(0, 240, 255, 0.15); color: var(--primary-accent); border: 1px solid rgba(0, 240, 255, 0.3); }
+        .exercise-desc { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; background: rgba(0, 0, 0, 0.2); padding: 1.5rem; border-radius: 16px; border-left: 4px solid var(--secondary-accent); }
+        .exercise-visual { width: 320px; height: 320px; border-radius: 20px; background: linear-gradient(145deg, #12141f, #0b0c12); border: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; flex-shrink: 0; box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5); }
+        .exercise-visual::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 30px 30px; transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px); animation: gridMove 20s linear infinite; pointer-events: none; }
+        @keyframes gridMove { 0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); } 100% { transform: perspective(500px) rotateX(60deg) translateY(60px) translateZ(-200px); } }
+        .play-button { width: 80px; height: 80px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--primary-accent); cursor: pointer; transition: all 0.3s ease; z-index: 2; }
+        .play-button:hover { transform: scale(1.1); background: rgba(0, 240, 255, 0.2); box-shadow: 0 0 30px rgba(0, 240, 255, 0.4); color: #fff; }
+        .model-label { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 0.8rem; color: rgba(255, 255, 255, 0.4); letter-spacing: 2px; text-transform: uppercase; z-index: 2; background: rgba(0,0,0,0.5); padding: 4px 12px; border-radius: 20px; }
+        @media (max-width: 1200px) { .exercise-card { flex-direction: column; align-items: center; } .exercise-info { width: 100%; } .exercise-visual { width: 100%; max-width: 500px; height: 280px; } }
+        @media (max-width: 900px) { .app-container { flex-direction: column; } .sidebar { width: 100%; height: auto; padding: 1rem; border-right: none; border-bottom: 1px solid var(--glass-border); } .logo { margin-bottom: 1rem; justify-content: center; font-size: 1.8rem; } .nav-links { flex-direction: row; overflow-x: auto; padding-bottom: 0.5rem; } .nav-links li { white-space: nowrap; } .main-content { padding: 2rem 1.5rem; } .day-header h1 { font-size: 3rem; } }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-dumbbell"></i>
+                <span>SKFitness</span>
+            </div>
+            <ul class="nav-links" id="day-nav">
+                <li data-day="monday" class="active"><i class="fa-solid fa-calendar-day"></i> Monday</li>
+                <li data-day="tuesday"><i class="fa-solid fa-calendar-day"></i> Tuesday</li>
+                <li data-day="wednesday"><i class="fa-solid fa-calendar-day"></i> Wednesday</li>
+                <li data-day="thursday"><i class="fa-solid fa-calendar-day"></i> Thursday</li>
+                <li data-day="friday"><i class="fa-solid fa-calendar-day"></i> Friday</li>
+                <li data-day="saturday"><i class="fa-solid fa-calendar-day"></i> Saturday</li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="day-header" id="day-header">
+                <h1 id="day-title">MONDAY</h1>
+                <p id="day-subtitle">PUSH 1 (Chest, Shoulders, Triceps, Serratus, Neck)</p>
+            </header>
+
+            <div class="exercises-container" id="exercises-container">
+                <!-- Exercises will be dynamically injected here -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // The data is included inline so you can just paste this one file into WordPress
+        const workoutPlan = {
+  "monday": {
+    "title": "PUSH 1",
+    "focus": "Chest, Shoulders, Triceps, Serratus, Neck",
+    "exercises": [
+      { "name": "Incline Dumbbell Press", "target": "Upper Chest", "effect": "Ye exercise aapke upper chest ko buri tarah se pump karti hai. Isse seene ka upari hissa bhar jata hai aur collar bone ke paas ek solid 3D look aata hai jisse chest kafi muscular dikhti hai.", "sets": "3 Sets" },
+      { "name": "Flat Barbell Bench Press", "target": "Middle Chest", "effect": "Chest ki overall motai aur size badhane ke liye sabse powerful exercise. Ye aapke poore seene ko heavy banati hai aur pushing strength ko bohot tezi se badhati hai.", "sets": "3 Sets" },
+      { "name": "High-to-Low Cable Crossover", "target": "Lower Chest", "effect": "Seene ke neeche wale hisse ko target karti hai. Isse lower chest pe ek sharp cut banta hai aur nipple ke paas ka area ekdum tight aur defined lagta hai.", "sets": "3 Sets" },
+      { "name": "Overhead Dumbbell Press", "target": "Front Shoulder", "effect": "Kandhe ke aage wale hisse (front delts) ko chauda aur golaakar banati hai. Isse aapke shoulders kaafi broad lagte hain aur upper body ko ek vishal aakar milta hai.", "sets": "3 Sets" },
+      { "name": "Lateral Raises", "target": "Side Shoulder / Lateral Head", "effect": "Kandho ki sachchi chaudai (width) badhane ka raaz. Ye shoulders ke side head ko bada karti hai, jisse aapka V-taper aur bhi zyada prominent lagta hai.", "sets": "4 Sets" },
+      { "name": "Overhead Triceps Extension", "target": "Triceps - Long Head", "effect": "Haath ka sabse bada hissa (Triceps Long Head) isse properly stretch aur grow hota hai. Isse arms kaafi mote aur strong dikhte hain.", "sets": "3 Sets" },
+      { "name": "Triceps Rope Pushdown", "target": "Triceps - Lateral Head", "effect": "Ye triceps ko ek badiya 'ghode ki naal' (horseshoe) jaisi shape deti hai. Bahar ki taraf se arm ki definition ke liye ye best hai.", "sets": "3 Sets" },
+      { "name": "Reverse Grip Cable Pushdown", "target": "Triceps - Medial Head", "effect": "Kohni (elbow) ke paas wale chhupe hue tricep hisse ko strong karti hai, jisse heavy lifts mein kohni ko zabardast support milta hai.", "sets": "2 Sets" },
+      { "name": "Cable Serratus Crunch", "target": "Serratus Anterior", "effect": "Seene aur lats ke side mein ribs ke upar 'boxer' jaisi sharp diagonal lines banati hai. Ye core aur aesthetics ke liye ek top-level exercise hai.", "sets": "3 Sets" },
+      { "name": "Neck Curls", "target": "Neck - Front", "effect": "Gardan ke aage ke hisse ko mota aur strong banati hai. Ek chaudi gardan aapko ek powerful aur intimidating look deti hai.", "sets": "3 Sets" }
+    ]
+  },
+  "tuesday": {
+    "title": "PULL 1",
+    "focus": "Back, Biceps, Traps, Forearms",
+    "exercises": [
+      { "name": "Lat Pulldown ya Pull-ups", "target": "Lats", "effect": "Back ko chauda karne aur ek perfect 'V-Taper' laane ke liye sabse main exercise. Ye wings ko failati hai jisse kamar patli aur back chaudi lagti hai.", "sets": "4 Sets" },
+      { "name": "Barbell Rows", "target": "Middle Back / Rhomboids", "effect": "Back mein motai (thickness) aur density bharne ke liye best hai. Ye aapki peeth ko side se dekhne pe kafi muscular aur thick banati hai.", "sets": "3 Sets" },
+      { "name": "Face Pulls", "target": "Rear Shoulder", "effect": "Kandhe ke peeche wale chote hisse ko hit karti hai aur posture theek karti hai. Isse shoulders poore 3D aur golaakar dikhte hain.", "sets": "3 Sets" },
+      { "name": "Barbell Bicep Curls", "target": "Biceps - Short Head", "effect": "Biceps ki andar ki chaudai aur thickness badhati hai. Jab aap apna arm flex karte hain, toh dola kafi bhara-bhara aur powerful lagta hai.", "sets": "3 Sets" },
+      { "name": "Hammer Curls", "target": "Brachialis", "effect": "Ye exercise biceps ke side wale muscles ko bada karti hai. Isse arm ki motai badhti hai aur dola lamba aur heavy aakar leta hai.", "sets": "3 Sets" },
+      { "name": "Preacher Curls", "target": "Biceps - Long Head", "effect": "Biceps ke 'Peak' (uthaav) ko badhane ke liye sabse badhiya exercise. Isse flex karne pe dola ek pahad jaisa uncha dikhta hai.", "sets": "2 Sets" },
+      { "name": "Dumbbell Shrugs", "target": "Upper Traps", "effect": "Gardan aur kandhe ke beech ke muscles (traps) ko bada karti hai. Bade traps ek dum beast aur alpha look dete hain.", "sets": "3 Sets" },
+      { "name": "Wrist Curls", "target": "Forearm - Flexors", "effect": "Kalai ke andar wale hisse ko mota karti hai. Isse grip strength badhti hai aur T-shirt mein forearms bohot tagde lagte hain.", "sets": "3 Sets" }
+    ]
+  },
+  "wednesday": {
+    "title": "LEGS & ABS 1",
+    "focus": "+ Lower Back",
+    "exercises": [
+      { "name": "Barbell Squats", "target": "Quads & Glutes", "effect": "Body ki sabse badi muscle building exercise. Ye jaangh (quads) aur hips ko size deti hai aur poori body ka testosterone level boost karti hai.", "sets": "4 Sets" },
+      { "name": "Lying Leg Curls", "target": "Hamstrings", "effect": "Jaangh ke peeche wale hisse ko target karti hai. Isse legs ko side se dekhne pe ek accha curve aur motai milti hai.", "sets": "3 Sets" },
+      { "name": "Standing Calf Raises", "target": "Calves - Gastrocnemius", "effect": "Pindli ke upari aur sabse bade hisse ko diamond shape mein develop karti hai. Shorts pehenne par calves ekdum muscular dikhte hain.", "sets": "3 Sets" },
+      { "name": "Seated Calf Raises", "target": "Calves - Soleus", "effect": "Pindli ke neeche wale hisse ko chaurasi aur width deti hai, jisse calves ka overall volume aur 3D look banta hai.", "sets": "3 Sets" },
+      { "name": "Hanging Leg Raises", "target": "Lower Abs", "effect": "Neeche wale ziddi abs ko bahar nikalti hai. Ye exercise us perfect 'V-Cut' aur shredded midsection ko achieve karne ke liye zaroori hai.", "sets": "3 Sets" },
+      { "name": "Crunches", "target": "Upper Abs", "effect": "Upar wale six-pack abs blocks ko thickness aur depth deti hai. Isse abs zyada deep aur visible bante hain.", "sets": "3 Sets" },
+      { "name": "Russian Twists", "target": "Obliques", "effect": "Kamar ke side ke muscles (obliques) ko tight aur cut deti hai, jisse kamar patli aur athletic lagti hai.", "sets": "3 Sets" },
+      { "name": "Plank", "target": "Transverse Abdominis", "effect": "Core ki andaruni taqat aur stability ko badhati hai. Ye pet ko bahar nikalne se rokti hai aur posture strong karti hai.", "sets": "3 Sets" },
+      { "name": "Back Extensions (Hyperextensions)", "target": "Lower Back / Erector Spinae", "effect": "Lower back ko lohe jaisa majboot banati hai aur wahan ek attractive 'Christmas tree' jaisa shape banati hai.", "sets": "3 Sets" }
+    ]
+  },
+  "thursday": {
+    "title": "PUSH 2",
+    "focus": "Chest, Shoulders, Triceps, Serratus, Neck",
+    "exercises": [
+      { "name": "High-to-Low Cable Crossover", "target": "Lower Chest", "effect": "Seene ke neeche wale hisse pe ek clear boundary aur cut banati hai. Nipple ke paas ka area defined aur muscular lagta hai.", "sets": "3 Sets" },
+      { "name": "Incline Barbell Press", "target": "Upper Chest", "effect": "Upper chest ko bhari aur thick banati hai. Isse chest ka shape uper se ekdum bhar jata hai, jo T-shirt me bahut accha lagta hai.", "sets": "3 Sets" },
+      { "name": "Flat Dumbbell Press", "target": "Middle Chest", "effect": "Dumbbells se deeper stretch milta hai, jisse chest muscles aur achhe se tutate hain. Ye overall chest ko grow aur thick karne me madad karti hai.", "sets": "3 Sets" },
+      { "name": "Arnold Press", "target": "Front & Side Shoulder", "effect": "Shoulders ki ek complete exercise jo rotation se front aur side dono delts ko ek sath golaakar aur massive banati hai.", "sets": "3 Sets" },
+      { "name": "Lateral Raises", "target": "Side Shoulder / Lateral Head", "effect": "Kandho ko ek chouda frame dene ke liye sabse badhiya exercise. Ye ek chaudi V-Taper back ka ilusion create karne me bohot kaam aati hai.", "sets": "4 Sets" },
+      { "name": "Skull Crushers", "target": "Triceps - Long & Medial Head", "effect": "Triceps ki sabse effective mass building exercise. Ye triceps ke overall size aur motai ko badha kar baaju ko massive aakar deti hai.", "sets": "3 Sets" },
+      { "name": "Reverse Grip Cable Pushdown", "target": "Triceps - Medial Head", "effect": "Kohni ke paas hone wale pain ko kam karke waha ke support muscle ko majboot banati hai. Bench press ke liye locking strength badhati hai.", "sets": "3 Sets" },
+      { "name": "Triceps Rope Pushdown", "target": "Triceps - Lateral Head", "effect": "Rope se triceps ke outer head me maximum contraction milta hai. Isse bahar ki taraf ghode ki naal jaisi hard shape dikhti hai.", "sets": "2 Sets" },
+      { "name": "Weighted Plank Shoulder Taps", "target": "Serratus Anterior", "effect": "Core ki zabardast stability ke saath ribs ke upar un sexy diagonal lines ko deep karti hai. Poora core ekdum solid ho jata hai.", "sets": "3 Sets" },
+      { "name": "Neck Extensions", "target": "Neck - Back", "effect": "Gardan ke peechle hisse ko bhari karti hai. Side se dekhne par gardan patli nahi balki thick aur powerful dikhti hai.", "sets": "3 Sets" }
+    ]
+  },
+  "friday": {
+    "title": "PULL 2",
+    "focus": "Back, Biceps, Traps, Forearms",
+    "exercises": [
+      { "name": "Seated Cable Rows", "target": "Middle Back", "effect": "Back ko depth aur thickness dene ke liye behtareen. Ye aapke mid-back ko thick aur 3D look deti hai, jaisa kachhuye ki shell hoti hai.", "sets": "3 Sets" },
+      { "name": "Lat Pulldown Close Grip", "target": "Lower Lats", "effect": "Back ke neeche wale hisse ko chauda karti hai. Isse lats bilkul kamar tak jude huye aur failay hue dikhte hain.", "sets": "3 Sets" },
+      { "name": "Dumbbell Shrugs", "target": "Upper Traps", "effect": "Traps ko uncha aur bada banati hai. Isse T-shirt ke collar area me kandhe se lekar gardan tak bohot thick muscle dikhta hai.", "sets": "3 Sets" },
+      { "name": "Reverse Pec Deck Fly", "target": "Rear Shoulder", "effect": "Kandhe ke sabse pichle hisse ko target karti hai, jisse golaakar 3D shoulder shape complete hoti hai aur posture improve hota hai.", "sets": "3 Sets" },
+      { "name": "Preacher Curls", "target": "Biceps - Long Head", "effect": "Dole me height aur peak laane ke liye isolation movement. Jab baazu mudta hai toh bicep ek tennis ball ki tarah ubhar ke aata hai.", "sets": "3 Sets" },
+      { "name": "Barbell Bicep Curls", "target": "Biceps - Short Head", "effect": "Biceps ke front width (samne ki chaudai) ko target karta hai. Heavy load ke chalte biceps rapidly mota aur thick ho jata hai.", "sets": "3 Sets" },
+      { "name": "Reverse Barbell Curls", "target": "Brachioradialis", "effect": "Forearm ke upper hisse aur biceps ke connection ko thick karti hai. Half sleeves me yaha ki details bahut eye-catching lagti hain.", "sets": "3 Sets" },
+      { "name": "Y-Raises", "target": "Mid / Lower Traps", "effect": "Upper back ko dense aur majboot karti hai. Ye back pain se bachati hai aur peeth ko peeche se bohot shredded look deti hai.", "sets": "2 Sets" },
+      { "name": "Reverse Wrist Curls", "target": "Forearm - Extensors (bahar)", "effect": "Kalai ke bahar wale hisse ko shape deti hai jisse forearm poori tarah se thick, complete aur naso se bhara hua dikhta hai.", "sets": "3 Sets" }
+    ]
+  },
+  "saturday": {
+    "title": "LEGS & ABS 2",
+    "focus": "+ Lower Back",
+    "exercises": [
+      { "name": "Leg Press", "target": "Quads", "effect": "Pairo me bhaari matra me muscle size add karne ke liye perfect machine. Isse front thighs ka shape aur thickness maximize hota hai.", "sets": "3 Sets" },
+      { "name": "Romanian Deadlifts (ya Lunges)", "target": "Hamstrings & Glutes", "effect": "Legs ke back side ko muscular aur stretchable banati hai. Isse athletic power milti hai aur hip structure solid hota hai.", "sets": "3 Sets" },
+      { "name": "Standing Calf Raises", "target": "Calves - Gastrocnemius", "effect": "Khade rehkar pindliyo ko stretch karne se lower legs ek dum patthar jaise majboot aur fully developed diamond shape me aa jate hain.", "sets": "3 Sets" },
+      { "name": "Seated Calf Raises", "target": "Calves - Soleus", "effect": "Baithkar karne se pindli ke inner aur deeper muscles train hote hai, jisse calf ko bahar se ek extra width aur volume milti hai.", "sets": "3 Sets" },
+      { "name": "Hanging Leg Raises", "target": "Lower Abs", "effect": "Core strength aur V-line abs ke liye sabse hardcore bodyweight move. Ye bottom abs ke cuts ko deep aur visible banata hai.", "sets": "3 Sets" },
+      { "name": "Crunches", "target": "Upper Abs", "effect": "Core ke upper blocks ko directly hit karta hai. Lagataar karne se pet shrink hota hai aur six pack ke upari cuts clear dikhte hain.", "sets": "3 Sets" },
+      { "name": "Russian Twists", "target": "Obliques", "effect": "Side love handles ko khatam karke kamar ko tight karta hai. Ye ek slim waist aur choude kandho ka V-taper illusion deta hai.", "sets": "3 Sets" },
+      { "name": "Plank", "target": "Transverse Abdominis", "effect": "Pet ke andar ke corset muscles ko lock kar deta hai. Isse pet hamesha tight and andar ki taraf rehta hai.", "sets": "3 Sets" },
+      { "name": "Good Mornings", "target": "Lower Back / Erector Spinae", "effect": "Lower back aur hamstrings me flexiblity aur taqat badhati hai. Squats/deadlift me heavy weight uthane me support karti hai.", "sets": "2 Sets" }
+    ]
+  }
+};
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-links li');
+            const dayTitle = document.getElementById('day-title');
+            const daySubtitle = document.getElementById('day-subtitle');
+            const exercisesContainer = document.getElementById('exercises-container');
+            const dayHeader = document.getElementById('day-header');
+
+            renderDay('monday');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    const selectedDay = e.currentTarget.getAttribute('data-day');
+                    
+                    exercisesContainer.style.opacity = '0';
+                    dayHeader.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        renderDay(selectedDay);
+                        void exercisesContainer.offsetWidth;
+                        exercisesContainer.style.opacity = '1';
+                        dayHeader.style.opacity = '1';
+                    }, 300);
+                });
+            });
+
+            function renderDay(dayKey) {
+                const data = workoutPlan[dayKey];
+                if (!data) return;
+
+                dayTitle.textContent = dayKey.toUpperCase();
+                daySubtitle.textContent = `${data.title} ${data.focus}`;
+                exercisesContainer.innerHTML = '';
+
+                data.exercises.forEach((ex, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'exercise-card';
+                    card.style.animationDelay = `${index * 0.1}s`;
+
+                    // Video setup
+                    // In WordPress, you can replace this placeholder with an actual <video> tag
+                    // or an <iframe> for youtube.
+                    
+                    card.innerHTML = `
+                        <div class="exercise-info">
+                            <h3 class="exercise-name">${ex.name}</h3>
+                            <div class="badges">
+                                <span class="badge target"><i class="fa-solid fa-bullseye"></i> ${ex.target}</span>
+                                <span class="badge sets"><i class="fa-solid fa-layer-group"></i> ${ex.sets}</span>
+                            </div>
+                            <p class="exercise-desc">
+                                <i class="fa-solid fa-bolt" style="color: var(--primary-accent); margin-right: 8px;"></i>
+                                ${ex.effect}
+                            </p>
+                        </div>
+                        <div class="exercise-visual">
+                            <!-- TODO: Change this to your video file -->
+                            <div class="play-button" onclick="alert('Is play button pe video link add karna hoga!')">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            <div class="model-label">3D Model Preview</div>
+                        </div>
+                    `;
+                    exercisesContainer.appendChild(card);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
