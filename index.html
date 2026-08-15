@@ -96,7 +96,7 @@
     "title": "PUSH 1",
     "focus": "Chest, Shoulders, Triceps, Serratus, Neck",
     "exercises": [
-      { "name": "Incline Dumbbell Press", "target": "Upper Chest", "effect": "Ye exercise aapke upper chest ko buri tarah se pump karti hai. Isse seene ka upari hissa bhar jata hai aur collar bone ke paas ek solid 3D look aata hai jisse chest kafi muscular dikhti hai.", "sets": "3 Sets" },
+      { "name": "Incline Dumbbell Press", "target": "Upper Chest", "effect": "Ye exercise aapke upper chest ko buri tarah se pump karti hai. Isse seene ka upari hissa bhar jata hai aur collar bone ke paas ek solid 3D look aata hai jisse chest kafi muscular dikhti hai.", "sets": "3 Sets" "video": "https://youtube.com/shorts/XwzcTkoQ6Sk?si=vmu9Hqjr33oEbBkB" },
       { "name": "Flat Barbell Bench Press", "target": "Middle Chest", "effect": "Chest ki overall motai aur size badhane ke liye sabse powerful exercise. Ye aapke poore seene ko heavy banati hai aur pushing strength ko bohot tezi se badhati hai.", "sets": "3 Sets" },
       { "name": "High-to-Low Cable Crossover/Dips", "target": "Lower Chest", "effect": "Seene ke neeche wale hisse ko target karti hai. Isse lower chest pe ek sharp cut banta hai aur nipple ke paas ka area ekdum tight aur defined lagta hai.", "sets": "3 Sets" },
       { "name": "Overhead Dumbbell Press", "target": "Front Shoulder", "effect": "Kandhe ke aage wale hisse (front delts) ko chauda aur golaakar banati hai. Isse aapke shoulders kaafi broad lagte hain aur upper body ko ek vishal aakar milta hai.", "sets": "3 Sets" },
@@ -241,11 +241,13 @@
                                 ${ex.effect}
                             </p>
                         </div>
-                                                <div class="exercise-visual" style="padding: 0; background: transparent;">
+                        <div class="exercise-visual" style="padding: 0; background: transparent; width: ${ex.vWidth || '320px'}; height: ${ex.vHeight || '320px'}; max-width: 100%;">
                             ${ex.video 
-                                ? `<video width="100%" height="100%" autoplay loop muted playsinline style="border-radius: 20px; object-fit: cover;">
-                                     <source src="${ex.video}" type="video/mp4">
-                                   </video>`
+                                ? (ex.video.includes('youtube.com') || ex.video.includes('youtu.be')
+                                    ? `<iframe width="100%" height="100%" src="${ex.video}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 20px;"></iframe>`
+                                    : `<video width="100%" height="100%" autoplay loop controls playsinline style="border-radius: 20px; object-fit: cover;">
+                                         <source src="${ex.video}" type="video/mp4">
+                                       </video>`)
                                 : `<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(145deg, #12141f, #0b0c12); border-radius: 20px;">
                                      <span style="color: rgba(255,255,255,0.3);">Video Not Available</span>
                                    </div>`
