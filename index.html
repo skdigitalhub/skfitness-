@@ -90,13 +90,12 @@
     </div>
 
     <script>
-        // The data is included inline so you can just paste this one file into WordPress
         const workoutPlan = {
   "monday": {
     "title": "PUSH 1",
     "focus": "Chest, Shoulders, Triceps, Serratus, Neck",
     "exercises": [
-      { "name": "Incline Dumbbell Press", "target": "Upper Chest", "effect": "Ye exercise aapke upper chest ko buri tarah se pump karti hai. Isse seene ka upari hissa bhar jata hai aur collar bone ke paas ek solid 3D look aata hai jisse chest kafi muscular dikhti hai.", "sets": "3 Sets", },
+      { "name": "Incline Dumbbell Press", "target": "Upper Chest", "effect": "Ye exercise aapke upper chest ko buri tarah se pump karti hai. Isse seene ka upari hissa bhar jata hai aur collar bone ke paas ek solid 3D look aata hai jisse chest kafi muscular dikhti hai.", "sets": "3 Sets" },
       { "name": "Flat Barbell Bench Press", "target": "Middle Chest", "effect": "Chest ki overall motai aur size badhane ke liye sabse powerful exercise. Ye aapke poore seene ko heavy banati hai aur pushing strength ko bohot tezi se badhati hai.", "sets": "3 Sets", "video": "https://youtube.com/embed/9sF6JftLFZg" },
       { "name": "High-to-Low Cable Crossover/Dips", "target": "Lower Chest", "effect": "Seene ke neeche wale hisse ko target karti hai. Isse lower chest pe ek sharp cut banta hai aur nipple ke paas ka area ekdum tight aur defined lagta hai.", "sets": "3 Sets" },
       { "name": "Overhead Dumbbell Press", "target": "Front Shoulder", "effect": "Kandhe ke aage wale hisse (front delts) ko chauda aur golaakar banati hai. Isse aapke shoulders kaafi broad lagte hain aur upper body ko ek vishal aakar milta hai.", "sets": "3 Sets" },
@@ -126,7 +125,7 @@
     "title": "LEGS & ABS 1",
     "focus": "+ Lower Back",
     "exercises": [
-           { "name": "Barbell Squats", "target": "Quads & Glutes", "effect": "Body ki sabse badi muscle building exercise. Ye jaangh (quads) aur hips ko size deti hai aur poori body ka testosterone level boost karti hai.", "sets": "4 Sets", "video": "create_a_video_bhai_Barbell_Sq.mp4" },
+      { "name": "Barbell Squats", "target": "Quads & Glutes", "effect": "Body ki sabse badi muscle building exercise. Ye jaangh (quads) aur hips ko size deti hai aur poori body ka testosterone level boost karti hai.", "sets": "4 Sets", "video": "create_a_video_bhai_Barbell_Sq.mp4" },
       { "name": "Lying Leg Curls", "target": "Hamstrings", "effect": "Jaangh ke peeche wale hisse ko target karti hai. Isse legs ko side se dekhne pe ek accha curve aur motai milti hai.", "sets": "3 Sets" },
       { "name": "Standing Calf Raises", "target": "Calves - Gastrocnemius", "effect": "Pindli ke upari aur sabse bade hisse ko diamond shape mein develop karti hai. Shorts pehenne par calves ekdum muscular dikhte hain.", "sets": "3 Sets" },
       { "name": "Seated Calf Raises", "target": "Calves - Soleus", "effect": "Pindli ke neeche wale hisse ko chaurasi aur width deti hai, jisse calves ka overall volume aur 3D look banta hai.", "sets": "3 Sets" },
@@ -224,10 +223,6 @@
                     const card = document.createElement('div');
                     card.className = 'exercise-card';
                     card.style.animationDelay = `${index * 0.1}s`;
-
-                    // Video setup
-                    // In WordPress, you can replace this placeholder with an actual <video> tag
-                    // or an <iframe> for youtube.
                     
                     card.innerHTML = `
                         <div class="exercise-info">
@@ -253,6 +248,7 @@
                                    </div>`
                             }
                         </div>
+                    `;
                     exercisesContainer.appendChild(card);
                 });
             }
