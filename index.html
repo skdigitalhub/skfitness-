@@ -20,27 +20,90 @@
             --glass-blur: blur(16px);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); background-image: radial-gradient(circle at 15% 50%, rgba(112, 0, 255, 0.15), transparent 25%), radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.1), transparent 25%); color: var(--text-main); min-height: 100vh; display: flex; overflow: hidden; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            min-height: 100vh; 
+            display: flex; 
+            overflow: hidden; 
+            position: relative;
+        }
+
+        /* 3D Interactive Mouse Glow Effect */
+        .cursor-glow {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; 
+            z-index: 1; 
+            background: radial-gradient(circle 600px at var(--cursor-x, 50%) var(--cursor-y, 50%), rgba(0, 240, 255, 0.08), transparent 40%),
+                        radial-gradient(circle 800px at calc(var(--cursor-x, 50%) - 150px) calc(var(--cursor-y, 50%) + 150px), rgba(112, 0, 255, 0.08), transparent 40%);
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        body:hover .cursor-glow { opacity: 1; }
+
+        .bg-base {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: radial-gradient(circle at 15% 50%, rgba(112, 0, 255, 0.05), transparent 25%), 
+                              radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.05), transparent 25%);
+            z-index: 0; pointer-events: none;
+        }
+
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--primary-accent); }
-        .app-container { display: flex; width: 100%; height: 100vh; }
-        .sidebar { width: 280px; background: var(--sidebar-bg); backdrop-filter: var(--glass-blur); border-right: 1px solid var(--glass-border); padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 10; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 800; display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; padding-left: 1rem; background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .app-container { display: flex; width: 100%; height: 100vh; z-index: 10; position: relative; }
+        
+        .sidebar { 
+            width: 280px; background: var(--sidebar-bg); backdrop-filter: var(--glass-blur); 
+            border-right: 1px solid var(--glass-border); padding: 2rem 1rem; display: flex; 
+            flex-direction: column; z-index: 10;
+            animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+        }
+        
+        .logo { 
+            font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 800; display: flex; 
+            align-items: center; gap: 1rem; margin-bottom: 3rem; padding-left: 1rem; 
+            background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            animation: fadeInDown 0.8s 0.2s ease backwards;
+        }
+        
         .nav-links { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-        .nav-links li { padding: 1rem 1.5rem; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: 500; display: flex; align-items: center; gap: 1rem; transition: all 0.3s ease; color: var(--text-muted); border: 1px solid transparent; }
-        .nav-links li:hover { background: var(--card-hover); color: var(--text-main); }
+        .nav-links li { 
+            padding: 1rem 1.5rem; border-radius: 12px; cursor: pointer; font-size: 1.1rem; 
+            font-weight: 500; display: flex; align-items: center; gap: 1rem; transition: all 0.3s ease; 
+            color: var(--text-muted); border: 1px solid transparent; 
+            animation: slideInLeft 0.5s ease backwards;
+        }
+        
+        .nav-links li:nth-child(1) { animation-delay: 0.1s; }
+        .nav-links li:nth-child(2) { animation-delay: 0.2s; }
+        .nav-links li:nth-child(3) { animation-delay: 0.3s; }
+        .nav-links li:nth-child(4) { animation-delay: 0.4s; }
+        .nav-links li:nth-child(5) { animation-delay: 0.5s; }
+        .nav-links li:nth-child(6) { animation-delay: 0.6s; }
+
+        .nav-links li:hover { background: var(--card-hover); color: var(--text-main); transform: translateX(5px); }
         .nav-links li.active { background: linear-gradient(90deg, rgba(112, 0, 255, 0.2), transparent); color: var(--primary-accent); border-left: 4px solid var(--primary-accent); border-radius: 4px 12px 12px 4px; }
+        
         .main-content { flex: 1; padding: 3rem 4rem; overflow-y: auto; position: relative; scroll-behavior: smooth; }
-        .day-header { margin-bottom: 3rem; animation: fadeInDown 0.6s ease; }
+        .day-header { margin-bottom: 3rem; animation: fadeInDown 0.8s 0.3s ease backwards; }
         .day-header h1 { font-family: 'Outfit', sans-serif; font-size: 4rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; text-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
         .day-header p { font-size: 1.2rem; color: var(--primary-accent); font-weight: 500; letter-spacing: 1px; }
+        
         .exercises-container { display: flex; flex-direction: column; gap: 2rem; padding-bottom: 4rem; }
         .exercise-card { display: flex; background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 24px; padding: 2rem; gap: 2.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; animation: fadeInUp 0.6s ease backwards; }
-        .exercise-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(112, 0, 255, 0.1); border-color: rgba(255, 255, 255, 0.15); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .exercise-card:hover { transform: translateY(-5px) scale(1.01); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(112, 0, 255, 0.1); border-color: rgba(255, 255, 255, 0.15); }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+        
         .exercise-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
         .exercise-name { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.2; }
         .badges { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
@@ -49,16 +112,15 @@
         .badge.sets { background: rgba(0, 240, 255, 0.15); color: var(--primary-accent); border: 1px solid rgba(0, 240, 255, 0.3); }
         .exercise-desc { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; background: rgba(0, 0, 0, 0.2); padding: 1.5rem; border-radius: 16px; border-left: 4px solid var(--secondary-accent); }
         .exercise-visual { width: 320px; height: 320px; border-radius: 20px; background: linear-gradient(145deg, #12141f, #0b0c12); border: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; flex-shrink: 0; box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5); }
-        .exercise-visual::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 30px 30px; transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px); animation: gridMove 20s linear infinite; pointer-events: none; }
-        @keyframes gridMove { 0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); } 100% { transform: perspective(500px) rotateX(60deg) translateY(60px) translateZ(-200px); } }
-        .play-button { width: 80px; height: 80px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--primary-accent); cursor: pointer; transition: all 0.3s ease; z-index: 2; }
-        .play-button:hover { transform: scale(1.1); background: rgba(0, 240, 255, 0.2); box-shadow: 0 0 30px rgba(0, 240, 255, 0.4); color: #fff; }
-        .model-label { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 0.8rem; color: rgba(255, 255, 255, 0.4); letter-spacing: 2px; text-transform: uppercase; z-index: 2; background: rgba(0,0,0,0.5); padding: 4px 12px; border-radius: 20px; }
+        
         @media (max-width: 1200px) { .exercise-card { flex-direction: column; align-items: center; } .exercise-info { width: 100%; } .exercise-visual { width: 100%; max-width: 500px; height: 280px; } }
         @media (max-width: 900px) { .app-container { flex-direction: column; } .sidebar { width: 100%; height: auto; padding: 1rem; border-right: none; border-bottom: 1px solid var(--glass-border); } .logo { margin-bottom: 1rem; justify-content: center; font-size: 1.8rem; } .nav-links { flex-direction: row; overflow-x: auto; padding-bottom: 0.5rem; } .nav-links li { white-space: nowrap; } .main-content { padding: 2rem 1.5rem; } .day-header h1 { font-size: 3rem; } }
     </style>
 </head>
 <body>
+    <div class="bg-base"></div>
+    <div class="cursor-glow"></div>
+
     <div class="app-container">
         <!-- Sidebar Navigation -->
         <nav class="sidebar">
@@ -90,6 +152,13 @@
     </div>
 
     <script>
+        // Mouse Tracking Logic
+        const cursorGlow = document.querySelector('.cursor-glow');
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.setProperty('--cursor-x', `${e.clientX}px`);
+            cursorGlow.style.setProperty('--cursor-y', `${e.clientY}px`);
+        });
+
         const workoutPlan = {
   "monday": {
     "title": "PUSH 1",
@@ -222,7 +291,7 @@
                 data.exercises.forEach((ex, index) => {
                     const card = document.createElement('div');
                     card.className = 'exercise-card';
-                    card.style.animationDelay = `${index * 0.1}s`;
+                    card.style.animationDelay = `${(index * 0.1) + 0.3}s`; // Staggered entry
                     
                     card.innerHTML = `
                         <div class="exercise-info">
