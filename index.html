@@ -31,6 +31,12 @@
             position: relative;
         }
 
+        /* Gym Watermark Background */
+        .gym-watermark {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg);
+            font-size: 40vw; color: rgba(255, 255, 255, 0.015); pointer-events: none; z-index: 0;
+        }
+
         /* 3D Interactive Mouse Glow */
         .cursor-glow {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -71,7 +77,7 @@
             animation: fadeInDown 0.8s 0.2s ease backwards;
         }
         
-        .nav-section-title { font-size: 0.8rem; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; padding-left: 1.5rem; }
+        .nav-section-title { font-size: 0.8rem; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; padding-left: 1.5rem; font-weight: bold;}
         
         .nav-links { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
         .nav-links li { 
@@ -90,14 +96,16 @@
         .view-section { display: none; animation: fadeIn 0.5s ease backwards; }
         .view-section.active { display: block; }
         
-        /* Days Horizontal Nav (Inside Workout View) */
-        .days-nav { display: flex; gap: 1rem; list-style: none; overflow-x: auto; padding-bottom: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--glass-border); }
-        .days-nav li { padding: 0.8rem 1.5rem; background: rgba(255,255,255,0.05); border-radius: 50px; cursor: pointer; white-space: nowrap; transition: 0.3s; color: var(--text-muted); display: flex; align-items: center; gap: 8px;}
-        .days-nav li:hover { background: rgba(255,255,255,0.1); color: white;}
-        .days-nav li.active { background: var(--primary-accent); color: #000; font-weight: bold; }
+        /* Days Horizontal Nav (Hover Fixed) */
+        .days-nav { display: flex; gap: 1rem; list-style: none; overflow-x: auto; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--glass-border); }
+        .days-nav li { padding: 0.8rem 1.5rem; background: rgba(255,255,255,0.05); border-radius: 50px; cursor: pointer; white-space: nowrap; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); color: var(--text-muted); display: flex; align-items: center; gap: 8px; border: 1px solid transparent; }
+        
+        .days-nav li:hover { background: var(--card-hover); color: white; transform: translateY(-4px); border-color: rgba(255,255,255,0.1); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+        .days-nav li.active { background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); color: #000; font-weight: bold; transform: scale(1.05); box-shadow: 0 10px 25px rgba(0, 240, 255, 0.3); border-color: transparent; }
+        
         .free-badge { background: #00ff88; color: #000; font-size: 0.65rem; padding: 2px 8px; border-radius: 10px; font-weight: 800; letter-spacing: 1px;}
         
-        .day-header h1 { font-family: 'Outfit', sans-serif; font-size: 4rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; text-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
+        .day-header h1 { font-family: 'Outfit', sans-serif; font-size: 4rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; text-shadow: 0 0 20px rgba(255, 255, 255, 0.1); display: flex; align-items: center; gap: 15px;}
         .day-header p { font-size: 1.2rem; color: var(--primary-accent); font-weight: 500; letter-spacing: 1px; margin-bottom: 3rem;}
         
         /* Exercises Cards */
@@ -107,7 +115,7 @@
         .exercise-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
         .exercise-name { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.2; }
         .badges { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-        .badge { padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .badge { padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 6px;}
         .badge.target { background: rgba(112, 0, 255, 0.2); color: #d6b3ff; border: 1px solid rgba(112, 0, 255, 0.4); }
         .badge.sets { background: rgba(0, 240, 255, 0.15); color: var(--primary-accent); border: 1px solid rgba(0, 240, 255, 0.3); }
         .exercise-desc { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; background: rgba(0, 0, 0, 0.2); padding: 1.5rem; border-radius: 16px; border-left: 4px solid var(--secondary-accent); }
@@ -125,7 +133,10 @@
         .input-group button { padding: 1.2rem; border-radius: 12px; background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); color: #fff; border: none; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;}
         .input-group button:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(112,0,255,0.4); }
         .error-msg { color: #ff3366 !important; margin-top: 1rem; font-weight: bold; font-size: 0.9rem !important; margin-bottom: 0 !important; display: none;}
-        .hint-msg { color: rgba(255,255,255,0.2) !important; font-size: 0.8rem !important; margin-top: 1rem; margin-bottom: 0 !important;}
+
+        /* Hero Button Fix */
+        #demo-btn { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        #demo-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 15px 30px rgba(112,0,255,0.5); }
 
         /* Contact Cards */
         .social-cards { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 3rem; justify-content: center;}
@@ -137,6 +148,10 @@
         .social-card h3 { font-family: 'Outfit', sans-serif; font-size: 1.8rem; margin-bottom: 0.5rem;}
         .social-card p { color: var(--text-muted); font-size: 1.1rem;}
 
+        /* Admin Dashboard Styles */
+        .delete-code-btn { background: transparent; border: none; color: rgba(255,255,255,0.2); cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease; padding: 5px; display: flex; align-items: center; justify-content: center;}
+        .delete-code-btn:hover { color: #ff3366; transform: scale(1.2); text-shadow: 0 0 10px rgba(255,51,102,0.5); }
+
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
@@ -146,17 +161,19 @@
 <body>
     <div class="bg-base"></div>
     <div class="cursor-glow"></div>
+    
+    <!-- Big faint background dumbbell -->
+    <i class="fa-solid fa-dumbbell gym-watermark"></i>
 
     <div class="app-container">
         <!-- Main Sidebar -->
         <nav class="sidebar">
-            <!-- SECRET ADMIN TRIGGER: Click this logo 5 times quickly -->
-            <div class="logo" id="main-logo" title="Click 5 times for Secret Admin">
+            <div class="logo" id="main-logo" title="SKFitness">
                 <i class="fa-solid fa-dumbbell"></i>
                 <span>SKFitness</span>
             </div>
             
-            <div class="nav-section-title">Main Menu</div>
+            <div class="nav-section-title"><i class="fa-solid fa-bars-staggered" style="margin-right: 5px;"></i> Main Menu</div>
             <ul class="nav-links main-menu" id="main-menu">
                 <li data-view="home" class="active"><i class="fa-solid fa-house"></i> Home</li>
                 <li data-view="workout"><i class="fa-solid fa-fire"></i> VIP Workout</li>
@@ -170,23 +187,23 @@
             <!-- 1. HOME VIEW -->
             <div id="view-home" class="view-section active">
                 <div style="text-align:center; padding: 6rem 2rem; animation: fadeInUp 0.8s ease;">
-                    <div style="display:inline-block; padding: 0.5rem 1.5rem; border-radius: 50px; background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.3); color: var(--primary-accent); margin-bottom: 2rem; font-weight: bold; letter-spacing: 1px;">ELITE 90-DAY PROGRAM</div>
-                    <h1 style="font-size: 4.5rem; margin-bottom: 1.5rem; font-family: 'Outfit', sans-serif; line-height: 1.1;">Build Your Dream<br><span style="color: var(--primary-accent);">Physique Today</span></h1>
+                    <div style="display:inline-block; padding: 0.5rem 1.5rem; border-radius: 50px; background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.3); color: var(--primary-accent); margin-bottom: 2rem; font-weight: bold; letter-spacing: 1px;"><i class="fa-solid fa-bolt"></i> ELITE 90-DAY PROGRAM</div>
+                    <h1 style="font-size: 4.5rem; margin-bottom: 1.5rem; font-family: 'Outfit', sans-serif; line-height: 1.1;"><i class="fa-solid fa-dumbbell" style="color: #ff3366; font-size: 3.5rem;"></i><br>Build Your Dream<br><span style="color: var(--primary-accent);">Physique Today</span></h1>
                     <p style="font-size: 1.3rem; color: var(--text-muted); margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">Stop guessing your workouts. Get a step-by-step professional plan with video guides for every single exercise.</p>
-                    <button onclick="document.querySelector('[data-view=\\'workout\\']').click()" style="padding: 1.2rem 3rem; font-size: 1.2rem; border-radius: 50px; background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); color: #fff; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; box-shadow: 0 10px 20px rgba(112,0,255,0.3);">View Free Demo <i class="fa-solid fa-arrow-right" style="margin-left: 10px;"></i></button>
+                    <button id="demo-btn" style="padding: 1.2rem 3rem; font-size: 1.2rem; border-radius: 50px; background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); color: #fff; border: none; cursor: pointer; font-weight: bold;">View Free Demo <i class="fa-solid fa-arrow-right" style="margin-left: 10px;"></i></button>
                 </div>
             </div>
 
-            <!-- 2. WORKOUT VIEW (Freemium logic here) -->
+            <!-- 2. WORKOUT VIEW -->
             <div id="view-workout" class="view-section">
                 <!-- Days Tab -->
                 <ul class="days-nav" id="days-nav">
-                    <li data-day="monday" class="active">Monday <span class="free-badge">FREE</span></li>
-                    <li data-day="tuesday">Tuesday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
-                    <li data-day="wednesday">Wednesday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
-                    <li data-day="thursday">Thursday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
-                    <li data-day="friday">Friday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
-                    <li data-day="saturday">Saturday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
+                    <li data-day="monday" class="active"><i class="fa-regular fa-calendar-days"></i> Monday <span class="free-badge">FREE</span></li>
+                    <li data-day="tuesday"><i class="fa-regular fa-calendar-days"></i> Tuesday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
+                    <li data-day="wednesday"><i class="fa-regular fa-calendar-days"></i> Wednesday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
+                    <li data-day="thursday"><i class="fa-regular fa-calendar-days"></i> Thursday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
+                    <li data-day="friday"><i class="fa-regular fa-calendar-days"></i> Friday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
+                    <li data-day="saturday"><i class="fa-regular fa-calendar-days"></i> Saturday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
                 </ul>
 
                 <header class="day-header" id="day-header">
@@ -198,18 +215,17 @@
                     <!-- Exercises injected here -->
                 </div>
 
-                <!-- PREMIUM LOCK SCREEN (Shows on Tue-Sat if not unlocked) -->
+                <!-- PREMIUM LOCK SCREEN -->
                 <div id="lock-screen" class="lock-screen-container" style="display: none;">
                     <div class="lock-card">
                         <i class="fa-solid fa-lock lock-icon"></i>
                         <h2>VIP Access Required</h2>
-                        <p>This day is locked. Enter your premium VIP password to unlock the full 90-day transformation.</p>
+                        <p>This workout is locked. Enter your premium VIP password to unlock the full 90-day transformation.</p>
                         <div class="input-group">
-                            <input type="password" id="vip-password" placeholder="Enter VIP Password">
+                            <input type="password" id="vip-password" placeholder="Enter VIP Code">
                             <button id="unlock-btn">Unlock Plan <i class="fa-solid fa-key" style="margin-left: 8px;"></i></button>
                         </div>
                         <p class="error-msg" id="lock-error">Incorrect Password. Try again or contact SKFitness.</p>
-                        <p class="hint-msg">Hint: Type '1234' for testing</p>
                     </div>
                 </div>
             </div>
@@ -217,7 +233,7 @@
             <!-- 3. CONTACT VIEW -->
             <div id="view-contact" class="view-section">
                 <div style="text-align:center; padding: 4rem 2rem; animation: fadeInUp 0.8s ease;">
-                    <h1 style="font-size: 3.5rem; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">Unlock VIP Access</h1>
+                    <h1 style="font-size: 3.5rem; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;"><i class="fa-solid fa-gem" style="color: var(--primary-accent); margin-right: 15px;"></i>Unlock VIP Access</h1>
                     <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Ready to take your physique to the next level? Send a direct message to make your payment and receive your unique VIP password instantly.</p>
                     
                     <div class="social-cards">
@@ -235,17 +251,38 @@
                 </div>
             </div>
 
-            <!-- 4. SECRET ADMIN VIEW -->
+            <!-- 4. SECRET ADMIN VIEW (Contains Login & Dashboard) -->
             <div id="view-admin" class="view-section">
-                <div style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); padding: 4rem; border-radius: 24px; max-width: 800px; margin: 0 auto; animation: fadeInUp 0.5s ease;">
-                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                        <i class="fa-solid fa-user-shield" style="font-size: 3rem; color: #ff3366;"></i>
-                        <h1 style="font-size: 3rem; font-family: 'Outfit', sans-serif;">Admin Dashboard</h1>
+                
+                <!-- Admin Login Screen -->
+                <div id="admin-login-screen" class="lock-screen-container">
+                    <div class="lock-card" style="border-color: rgba(255, 51, 102, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 40px rgba(255, 51, 102, 0.05);">
+                        <i class="fa-solid fa-user-shield lock-icon" style="color: #ff3366; text-shadow: 0 0 20px rgba(255,51,102,0.5);"></i>
+                        <h2 style="color: #fff;">Admin Authentication</h2>
+                        <p>Enter master password to access the control panel.</p>
+                        <div class="input-group">
+                            <input type="password" id="admin-password" placeholder="Master Password" style="letter-spacing: 5px;">
+                            <button id="admin-login-btn" style="background: linear-gradient(135deg, #ff3366, #ff0044);">Login <i class="fa-solid fa-right-to-bracket" style="margin-left: 8px;"></i></button>
+                        </div>
+                        <p class="error-msg" id="admin-error">Access Denied. Unauthorized Attempt.</p>
                     </div>
-                    <p style="color: var(--text-muted); margin-bottom: 3rem; font-size: 1.1rem;">Welcome Boss. This hidden panel is only accessible to you. Later, this will connect to Firebase to generate real access codes.</p>
+                </div>
+
+                <!-- Admin Dashboard (Hidden initially) -->
+                <div id="admin-dashboard-screen" style="display: none; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); padding: 4rem; border-radius: 24px; max-width: 800px; margin: 0 auto; animation: fadeInUp 0.5s ease;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 3rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <i class="fa-solid fa-user-shield" style="font-size: 3rem; color: #ff3366;"></i>
+                            <div>
+                                <h1 style="font-size: 2.5rem; font-family: 'Outfit', sans-serif;">Admin Dashboard</h1>
+                                <p style="color: var(--text-muted); font-size: 1rem;">Welcome Boss. Control your clients here.</p>
+                            </div>
+                        </div>
+                        <button id="admin-logout-btn" style="background: transparent; color: #a0a5ba; border: 1px solid rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 8px; cursor: pointer; transition: 0.3s;"><i class="fa-solid fa-arrow-right-from-bracket"></i> Lock Panel</button>
+                    </div>
                     
                     <div style="background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 16px; border: 1px solid var(--glass-border); margin-bottom: 2rem;">
-                        <h3 style="margin-bottom: 1.5rem; font-family: 'Outfit', sans-serif; font-size: 1.5rem;">Generate New VIP Code</h3>
+                        <h3 style="margin-bottom: 1.5rem; font-family: 'Outfit', sans-serif; font-size: 1.5rem;"><i class="fa-solid fa-key" style="margin-right: 10px; color: #ff3366;"></i>Generate New VIP Code</h3>
                         <div style="display: flex; gap: 1rem;">
                             <input type="text" placeholder="Enter Client's Name" style="padding: 1.2rem; border-radius: 12px; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); color: #fff; flex: 1; font-size: 1.1rem; outline: none;">
                             <button style="padding: 1.2rem 2.5rem; border-radius: 12px; background: #ff3366; color: #fff; border: none; cursor: pointer; font-weight: bold; font-size: 1.1rem; transition: 0.3s;">Generate Code</button>
@@ -253,14 +290,22 @@
                     </div>
                     
                     <div style="background: rgba(0,240,255,0.05); padding: 2rem; border-radius: 16px; border: 1px solid rgba(0,240,255,0.2);">
-                        <h3 style="margin-bottom: 1rem; color: var(--primary-accent); font-family: 'Outfit', sans-serif;">Recent Codes (Dummy Data)</h3>
-                        <div style="display: flex; justify-content: space-between; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <h3 style="margin-bottom: 1rem; color: var(--primary-accent); font-family: 'Outfit', sans-serif;"><i class="fa-solid fa-list-check" style="margin-right: 10px;"></i>Active VIP Codes</h3>
+                        
+                        <div class="code-row" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
                             <span style="color: #fff;">Client: Rahul Sharma</span>
-                            <span style="color: #00ff88; font-family: monospace; font-size: 1.2rem; font-weight: bold;">VIP-RAHUL-8492</span>
+                            <div style="display: flex; gap: 1.5rem; align-items: center;">
+                                <span style="color: #00ff88; font-family: monospace; font-size: 1.2rem; font-weight: bold; letter-spacing: 1px;">VIP-RAHUL-8492</span>
+                                <button class="delete-code-btn" title="Revoke Access"><i class="fa-solid fa-trash"></i></button>
+                            </div>
                         </div>
-                        <div style="display: flex; justify-content: space-between; padding: 1rem;">
+
+                        <div class="code-row" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem;">
                             <span style="color: #fff;">Client: Amit Kumar</span>
-                            <span style="color: #00ff88; font-family: monospace; font-size: 1.2rem; font-weight: bold;">VIP-AMIT-2231</span>
+                            <div style="display: flex; gap: 1.5rem; align-items: center;">
+                                <span style="color: #00ff88; font-family: monospace; font-size: 1.2rem; font-weight: bold; letter-spacing: 1px;">VIP-AMIT-2231</span>
+                                <button class="delete-code-btn" title="Revoke Access"><i class="fa-solid fa-trash"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -386,6 +431,11 @@
             const dayTitle = document.getElementById('day-title');
             const daySubtitle = document.getElementById('day-subtitle');
 
+            // Home Button Fix
+            document.getElementById('demo-btn').addEventListener('click', () => {
+                document.querySelector('[data-view="workout"]').click();
+            });
+
             // View Switcher (Main Menu)
             viewLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
@@ -396,7 +446,6 @@
                     views.forEach(v => v.classList.remove('active'));
                     document.getElementById(`view-${viewName}`).classList.add('active');
 
-                    // If entering Workout, auto-render Monday (or currently selected day)
                     if(viewName === 'workout') {
                         const activeDay = document.querySelector('.days-nav li.active').getAttribute('data-day');
                         renderDay(activeDay);
@@ -427,7 +476,6 @@
 
             // Render Day Logic (The Freemium Engine)
             function renderDay(dayKey) {
-                // LOCK LOGIC: If not Monday and not unlocked, show lock screen!
                 if(dayKey !== 'monday' && !isVIPUnlocked) {
                     exercisesContainer.style.display = 'none';
                     dayHeader.style.display = 'none';
@@ -435,7 +483,6 @@
                     return;
                 }
 
-                // UNLOCKED LOGIC: Show content
                 lockScreen.style.display = 'none';
                 exercisesContainer.style.display = 'flex';
                 dayHeader.style.display = 'block';
@@ -443,7 +490,7 @@
                 const data = workoutPlan[dayKey];
                 if (!data) return;
 
-                dayTitle.textContent = dayKey.toUpperCase();
+                dayTitle.innerHTML = `<i class="fa-solid fa-dumbbell" style="font-size: 0.8em; color: var(--primary-accent);"></i> ${dayKey.toUpperCase()}`;
                 daySubtitle.textContent = `${data.title} ${data.focus}`;
                 exercisesContainer.innerHTML = '';
 
@@ -480,7 +527,6 @@
                     exercisesContainer.appendChild(card);
                 });
                 
-                // If unlocked, remove the lock icons from tabs so client feels happy
                 if(isVIPUnlocked) {
                     document.querySelectorAll('.fa-lock').forEach(icon => {
                         if(icon.parentElement.tagName === 'LI') {
@@ -491,16 +537,14 @@
                 }
             }
 
-            // Unlock Button Check (Dummy Firebase)
+            // Client Unlock VIP Button Check
             document.getElementById('unlock-btn').addEventListener('click', () => {
                 const pwd = document.getElementById('vip-password').value;
-                if(pwd === '1234') { // THIS WILL BE FIREBASE LATER
+                if(pwd === '1234567') { 
                     isVIPUnlocked = true;
                     document.getElementById('lock-error').style.display = 'none';
-                    // Re-render current day to show exercises
                     const activeDay = document.querySelector('.days-nav li.active').getAttribute('data-day');
                     
-                    // Cool unlock animation
                     lockScreen.style.transform = 'scale(0.9)';
                     lockScreen.style.opacity = '0';
                     setTimeout(() => {
@@ -513,25 +557,72 @@
                 }
             });
 
-            // --- 4. SECRET ADMIN TRIGGER ---
+
+            // --- 4. SECRET ADMIN LOGIC ---
             let logoClickCount = 0;
             let logoClickTimer;
+            let isAdminLoggedIn = false;
+
+            // Open Admin Panel
             document.getElementById('main-logo').addEventListener('click', () => {
                 logoClickCount++;
                 clearTimeout(logoClickTimer);
                 
-                if(logoClickCount === 5) { // 5 fast clicks unlock Admin
+                if(logoClickCount === 5) { 
                     logoClickCount = 0;
                     views.forEach(v => v.classList.remove('active'));
                     viewLinks.forEach(l => l.classList.remove('active'));
                     document.getElementById('view-admin').classList.add('active');
+
+                    // Check if already logged in
+                    if(isAdminLoggedIn) {
+                        document.getElementById('admin-login-screen').style.display = 'none';
+                        document.getElementById('admin-dashboard-screen').style.display = 'block';
+                    } else {
+                        document.getElementById('admin-login-screen').style.display = 'flex';
+                        document.getElementById('admin-dashboard-screen').style.display = 'none';
+                    }
                 }
                 
-                // Reset counter if they pause clicking for more than 1 second
                 logoClickTimer = setTimeout(() => {
                     logoClickCount = 0;
                 }, 1000);
             });
+
+            // Admin Login Button
+            document.getElementById('admin-login-btn').addEventListener('click', () => {
+                const adminPwd = document.getElementById('admin-password').value;
+                if(adminPwd === '00998877') {
+                    isAdminLoggedIn = true;
+                    document.getElementById('admin-error').style.display = 'none';
+                    document.getElementById('admin-login-screen').style.display = 'none';
+                    document.getElementById('admin-dashboard-screen').style.display = 'block';
+                } else {
+                    document.getElementById('admin-error').style.display = 'block';
+                    document.getElementById('admin-error').style.animation = 'fadeInUp 0.3s ease';
+                }
+            });
+
+            // Admin Logout Button
+            document.getElementById('admin-logout-btn').addEventListener('click', () => {
+                isAdminLoggedIn = false;
+                document.getElementById('admin-password').value = '';
+                document.getElementById('admin-dashboard-screen').style.display = 'none';
+                document.getElementById('admin-login-screen').style.display = 'flex';
+            });
+
+            // Delete Generated Codes (Dummy logic)
+            document.querySelectorAll('.delete-code-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    if(confirm("Are you sure you want to REVOKE this client's VIP Code? They will be locked out immediately.")) {
+                        e.currentTarget.closest('.code-row').style.opacity = '0';
+                        setTimeout(() => {
+                            e.currentTarget.closest('.code-row').style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+
         });
     </script>
 </body>
