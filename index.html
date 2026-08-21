@@ -27,14 +27,14 @@
         body:hover .cursor-glow { opacity: 1; }
         .bg-base { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: radial-gradient(circle at 15% 50%, rgba(112, 0, 255, 0.05), transparent 25%), radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.05), transparent 25%); z-index: 0; pointer-events: none; }
         
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 8px; height: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
         
         .app-container { display: flex; width: 100%; height: 100vh; z-index: 10; position: relative; }
         
-        /* Sidebar */
-        .sidebar { width: 280px; background: var(--sidebar-bg); backdrop-filter: var(--glass-blur); border-right: 1px solid var(--glass-border); padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 10; animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+        /* Sidebar Desktop */
+        .sidebar { width: 280px; background: var(--sidebar-bg); backdrop-filter: var(--glass-blur); border-right: 1px solid var(--glass-border); padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 100; animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
         .logo { font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 800; display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; padding-left: 1rem; background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; user-select: none; animation: fadeInDown 0.8s 0.2s ease backwards; }
         .nav-section-title { font-size: 0.8rem; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; padding-left: 1.5rem; font-weight: bold;}
         .nav-links { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
@@ -72,7 +72,7 @@
         
         /* Premium Lock Screen */
         .lock-screen-container { display: flex; justify-content: center; align-items: center; padding: 4rem 0; }
-        .lock-card { background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid rgba(112, 0, 255, 0.3); border-radius: 24px; padding: 3rem; text-align: center; max-width: 450px; box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 40px rgba(112, 0, 255, 0.05); animation: fadeInUp 0.5s ease backwards; }
+        .lock-card { background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid rgba(112, 0, 255, 0.3); border-radius: 24px; padding: 3rem; text-align: center; max-width: 450px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 40px rgba(112, 0, 255, 0.05); animation: fadeInUp 0.5s ease backwards; }
         .lock-icon { font-size: 4rem; color: var(--secondary-accent); margin-bottom: 1.5rem; text-shadow: 0 0 20px rgba(112,0,255,0.5); }
         .lock-card h2 { font-family: 'Outfit', sans-serif; font-size: 2.2rem; margin-bottom: 1rem; color: #fff;}
         .lock-card p { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.5;}
@@ -88,7 +88,7 @@
 
         /* Social Cards */
         .social-cards { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 3rem; justify-content: center;}
-        .social-card { flex: 1; max-width: 300px; background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); padding: 3rem 2rem; border-radius: 24px; text-align: center; cursor: pointer; transition: 0.3s; text-decoration: none; color: white;}
+        .social-card { flex: 1; min-width: 250px; max-width: 300px; background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); padding: 3rem 2rem; border-radius: 24px; text-align: center; cursor: pointer; transition: 0.3s; text-decoration: none; color: white;}
         .social-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); box-shadow: 0 15px 30px rgba(0,0,0,0.3);}
         .social-card i { font-size: 4rem; margin-bottom: 1.5rem; }
 
@@ -105,10 +105,63 @@
         .admin-tab-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; padding: 0.5rem 1rem; transition: 0.3s; font-family: 'Outfit'; font-weight: bold;}
         .admin-tab-btn.active { color: #ff3366; border-bottom: 2px solid #ff3366; }
 
-        .delete-btn-sm { background: transparent; border: none; color: rgba(255,255,255,0.2); cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease; padding: 5px;}
+        .delete-btn-sm, .reply-btn-sm { background: transparent; border: none; color: rgba(255,255,255,0.2); cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease; padding: 5px; margin-right: 10px;}
         .delete-btn-sm:hover { color: #ff3366; transform: scale(1.2); }
-        .reply-btn-sm { background: transparent; border: none; color: rgba(255,255,255,0.2); cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease; padding: 5px; margin-right: 10px;}
         .reply-btn-sm:hover { color: var(--primary-accent); transform: scale(1.2); }
+
+        /* =========================================
+           📱 MOBILE RESPONSIVE APP MEDIA QUERIES 
+           ========================================= */
+        @media (max-width: 768px) {
+            .cursor-glow { display: none; } /* Disable cursor trail for smooth mobile touch */
+            .app-container { flex-direction: column; }
+            
+            /* Turn Sidebar into Top Header & Bottom Nav */
+            .sidebar { width: 100%; height: auto; padding: 1rem; border-right: none; border-bottom: 1px solid var(--glass-border); align-items: center; justify-content: center; flex-direction: row; }
+            .logo { margin-bottom: 0; padding-left: 0; font-size: 1.8rem; }
+            .nav-section-title { display: none; }
+            
+            /* 📱 Premium Bottom App Navigation Bar */
+            .nav-links { 
+                position: fixed; bottom: 0; left: 0; width: 100%; 
+                background: rgba(20, 22, 35, 0.98); backdrop-filter: blur(20px);
+                flex-direction: row; justify-content: space-around; 
+                border-top: 1px solid var(--glass-border); padding: 0.8rem 0; margin: 0; z-index: 1000;
+                box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+            }
+            .nav-links li { flex-direction: column; gap: 5px; font-size: 0.75rem; padding: 0.5rem; border: none !important; border-radius: 8px; justify-content: center; }
+            .nav-links li i { font-size: 1.3rem; margin: 0; }
+            .nav-links li:hover { transform: none; background: transparent; }
+            .nav-links li.active { background: rgba(0, 240, 255, 0.1); border-left: none !important; border-bottom: 3px solid var(--primary-accent) !important; border-radius: 8px; }
+
+            /* Spacing adjustments for Bottom Nav */
+            .main-content { padding: 1.5rem; padding-bottom: 120px; }
+            
+            /* Home View Adjustments */
+            #view-home h1 { font-size: 2.8rem !important; }
+            #view-home p { font-size: 1.1rem !important; }
+            #demo-btn { width: 100%; padding: 1.2rem; }
+
+            /* Workout View Adjustments */
+            .day-header h1 { font-size: 2.5rem; }
+            .days-nav { padding-bottom: 1rem; }
+            
+            /* Exercise Cards become Vertical on Phone */
+            .exercise-card { flex-direction: column; padding: 1.5rem; gap: 1.5rem; }
+            .exercise-visual { width: 100% !important; height: 250px !important; }
+            .exercise-name { font-size: 1.6rem; }
+            
+            /* Contact & Lock Screens */
+            .lock-card { padding: 2rem 1.2rem; }
+            #view-contact h1 { font-size: 2.2rem !important; }
+            .social-card { width: 100%; padding: 2rem 1.5rem; }
+            
+            /* Admin Panel Layout */
+            #admin-dashboard-screen { padding: 1.5rem; }
+            .admin-tabs { flex-wrap: wrap; }
+            .admin-tab-btn { font-size: 0.95rem; flex: 1; padding: 0.5rem; text-align: center; }
+            .code-row { flex-direction: column; gap: 1rem; align-items: flex-start !important; }
+        }
 
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
@@ -122,17 +175,18 @@
     <i class="fa-solid fa-dumbbell gym-watermark"></i>
 
     <div class="app-container">
-        <!-- Sidebar -->
+        <!-- Sidebar / Top Header (on Mobile) -->
         <nav class="sidebar">
-            <div class="logo" id="main-logo" title="SKFitness">
+            <div class="logo" id="main-logo" title="SKFitness (Tap 5 times for Admin)">
                 <i class="fa-solid fa-dumbbell"></i> <span>SKFitness</span>
             </div>
             
             <div class="nav-section-title"><i class="fa-solid fa-bars-staggered" style="margin-right: 5px;"></i> Main Menu</div>
+            <!-- Bottom Navigation Bar (on Mobile) -->
             <ul class="nav-links main-menu" id="main-menu">
                 <li data-view="home" class="active"><i class="fa-solid fa-house"></i> Home</li>
                 <li data-view="workout"><i class="fa-solid fa-fire"></i> VIP Workout</li>
-                <li data-view="reviews"><i class="fa-solid fa-star"></i> Client Reviews</li>
+                <li data-view="reviews"><i class="fa-solid fa-star"></i> Reviews</li>
                 <li data-view="contact"><i class="fa-solid fa-paper-plane"></i> Contact Me</li>
             </ul>
         </nav>
@@ -142,7 +196,7 @@
             
             <!-- 1. HOME VIEW -->
             <div id="view-home" class="view-section active">
-                <div style="text-align:center; padding: 6rem 2rem; animation: fadeInUp 0.8s ease;">
+                <div style="text-align:center; padding: 3rem 0; animation: fadeInUp 0.8s ease;">
                     <div style="display:inline-block; padding: 0.5rem 1.5rem; border-radius: 50px; background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.3); color: var(--primary-accent); margin-bottom: 2rem; font-weight: bold; letter-spacing: 1px;"><i class="fa-solid fa-bolt"></i> ELITE 90-DAY PROGRAM</div>
                     <h1 style="font-size: 4.5rem; margin-bottom: 1.5rem; font-family: 'Outfit', sans-serif; line-height: 1.1;"><i class="fa-solid fa-dumbbell" style="color: #ff3366; font-size: 3.5rem;"></i><br>Build Your Dream<br><span style="color: var(--primary-accent);">Physique Today</span></h1>
                     <p style="font-size: 1.3rem; color: var(--text-muted); margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">Stop guessing your workouts. Get a step-by-step professional plan with video guides for every single exercise.</p>
@@ -194,9 +248,9 @@
                     <!-- Add Review Form -->
                     <div id="public-review-box" style="background: var(--card-bg); border: 1px solid var(--glass-border); padding: 2rem; border-radius: 20px; margin-bottom: 3rem;">
                         <h3 style="margin-bottom: 1.5rem;">Leave Your Review</h3>
-                        <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-                            <input type="text" id="pub-rev-name" class="admin-input" placeholder="Your Name" style="flex:1;">
-                            <select id="pub-rev-rating" class="admin-input" style="flex:1; background: rgba(0,0,0,0.5);">
+                        <div style="display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
+                            <input type="text" id="pub-rev-name" class="admin-input" placeholder="Your Name" style="flex:1; min-width: 200px;">
+                            <select id="pub-rev-rating" class="admin-input" style="flex:1; background: rgba(0,0,0,0.5); min-width: 200px;">
                                 <option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
                                 <option value="4">⭐⭐⭐⭐ 4 Stars</option>
                                 <option value="3">⭐⭐⭐ 3 Stars</option>
@@ -216,14 +270,14 @@
 
             <!-- 4. CONTACT VIEW -->
             <div id="view-contact" class="view-section">
-                <div style="text-align:center; padding: 4rem 2rem; animation: fadeInUp 0.8s ease;">
+                <div style="text-align:center; padding: 2rem 0; animation: fadeInUp 0.8s ease;">
                     <h1 style="font-size: 3.5rem; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;"><i class="fa-solid fa-gem" style="color: var(--primary-accent); margin-right: 15px;"></i>Unlock VIP Access</h1>
                     <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Ready to take your physique to the next level? Send a direct message to make your payment and receive your unique VIP password instantly.</p>
                     <div class="social-cards">
                         <a href="https://wa.me/YOUR_NUMBER" target="_blank" class="social-card whatsapp">
                             <i class="fa-brands fa-whatsapp"></i>
                             <h3>WhatsApp Me</h3>
-                            <p>Instant Reply & Payment</p>
+                            <p>Instant Reply</p>
                         </a>
                         <a href="https://instagram.com/YOUR_HANDLE" target="_blank" class="social-card instagram">
                             <i class="fa-brands fa-instagram"></i>
@@ -253,12 +307,10 @@
                 <!-- Dashboard -->
                 <div id="admin-dashboard-screen" style="display: none; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); padding: 3rem; border-radius: 24px; max-width: 900px; margin: 0 auto; animation: fadeInUp 0.5s ease;">
                     
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
                         <div style="display: flex; align-items: center; gap: 1rem;">
                             <i class="fa-solid fa-user-shield" style="font-size: 2.5rem; color: #ff3366;"></i>
-                            <div>
-                                <h1 style="font-size: 2rem; font-family: 'Outfit';">Admin Control Panel</h1>
-                            </div>
+                            <div><h1 style="font-size: 2rem; font-family: 'Outfit';">Control Panel</h1></div>
                         </div>
                         <button id="admin-logout-btn" style="background: transparent; color: #a0a5ba; border: 1px solid rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 8px; cursor: pointer;"><i class="fa-solid fa-lock"></i> Lock Panel</button>
                     </div>
@@ -273,17 +325,16 @@
                     <div id="admin-tab-codes">
                         <div style="background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 16px; border: 1px solid var(--glass-border); margin-bottom: 2rem;">
                             <h3 style="margin-bottom: 1rem; font-family: 'Outfit';">Generate New VIP Code</h3>
-                            <div style="display: flex; gap: 1rem;">
-                                <input type="text" id="new-client-name" class="admin-input" placeholder="Enter Client's Name" style="flex: 1;">
-                                <button id="generate-code-btn" class="admin-btn" style="background: #ff3366;">Generate Code</button>
+                            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                                <input type="text" id="new-client-name" class="admin-input" placeholder="Enter Client's Name" style="flex: 1; min-width: 200px;">
+                                <button id="generate-code-btn" class="admin-btn" style="background: #ff3366; flex: 1; min-width: 200px;">Generate Code</button>
                             </div>
                         </div>
                         
-                        <div style="background: rgba(0,240,255,0.05); padding: 2rem; border-radius: 16px; border: 1px solid rgba(0,240,255,0.2);">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1.5rem;">
+                        <div style="background: rgba(0,240,255,0.05); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(0,240,255,0.2);">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
                                 <h3 style="color: var(--primary-accent); font-family: 'Outfit'; margin:0;">Active VIP Codes</h3>
-                                <!-- SEARCH BAR FOR ADMIN -->
-                                <div style="position:relative; width: 250px;">
+                                <div style="position:relative; flex: 1; min-width: 200px;">
                                     <i class="fa-solid fa-magnifying-glass" style="position:absolute; left: 15px; top: 15px; color: var(--text-muted);"></i>
                                     <input type="text" id="search-code-input" class="admin-input" placeholder="Search name or code..." style="padding: 0.8rem 1rem 0.8rem 2.5rem; width: 100%; border-radius: 50px; font-size:1rem;">
                                 </div>
@@ -296,9 +347,9 @@
                     <div id="admin-tab-reviews" style="display: none;">
                         <div style="background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 16px; border: 1px solid var(--glass-border); margin-bottom: 2rem;">
                             <h3 style="margin-bottom: 1rem; font-family: 'Outfit';"><i class="fa-solid fa-plus"></i> Add Dummy/Custom Review</h3>
-                            <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-                                <input type="text" id="admin-rev-name-input" class="admin-input" placeholder="Client Name" style="flex: 1;">
-                                <select id="admin-rev-rating-input" class="admin-input" style="flex: 1; background: rgba(0,0,0,0.5);">
+                            <div style="display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
+                                <input type="text" id="admin-rev-name-input" class="admin-input" placeholder="Client Name" style="flex: 1; min-width: 150px;">
+                                <select id="admin-rev-rating-input" class="admin-input" style="flex: 1; background: rgba(0,0,0,0.5); min-width: 150px;">
                                     <option value="5">5 Stars</option>
                                     <option value="4">4 Stars</option>
                                 </select>
@@ -307,7 +358,7 @@
                             <button id="admin-add-rev-btn" class="admin-btn" style="width: 100%;">Add to Public Page</button>
                         </div>
 
-                        <div style="background: rgba(255,193,7,0.05); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,193,7,0.2);">
+                        <div style="background: rgba(255,193,7,0.05); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(255,193,7,0.2);">
                             <h3 style="margin-bottom: 1.5rem; color: #ffc107; font-family: 'Outfit';">Manage Public Reviews</h3>
                             <div id="admin-reviews-list"></div>
                         </div>
@@ -320,12 +371,6 @@
     </div>
 
     <script>
-        const cursorGlow = document.querySelector('.cursor-glow');
-        document.addEventListener('mousemove', (e) => {
-            cursorGlow.style.setProperty('--cursor-x', `${e.clientX}px`);
-            cursorGlow.style.setProperty('--cursor-y', `${e.clientY}px`);
-        });
-
         // --- DATA PAYLOAD ---
         const workoutPlan = {
   "monday": {
@@ -423,7 +468,7 @@
 
         // --- LOCAL STORAGE LOGIC ---
         let savedVIPCodes = JSON.parse(localStorage.getItem('skfitness_vip_codes')) || [
-            { client: "Default Testing Code", code: "1234567" }
+            { client: "Testing Client", code: "1234567" }
         ];
 
         let savedReviews = JSON.parse(localStorage.getItem('skfitness_reviews')) || [
@@ -460,8 +505,8 @@
                 row.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);';
                 row.innerHTML = `
                     <span style="color: #fff;">Client: ${item.client}</span>
-                    <div style="display: flex; gap: 1.5rem; align-items: center;">
-                        <span style="color: #00ff88; font-family: monospace; font-size: 1.2rem; font-weight: bold; letter-spacing: 1px;">${item.code}</span>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <span style="color: #00ff88; font-family: monospace; font-size: 1.1rem; font-weight: bold; letter-spacing: 1px;">${item.code}</span>
                         <button class="delete-btn-sm" data-code="${item.code}" title="Revoke Access"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 `;
@@ -506,15 +551,15 @@
 
                 // Admin View HTML
                 const admHtml = `
-                    <div class="code-row" style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <div class="code-row" style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 10px;">
+                        <div style="display:flex; justify-content:space-between;">
                             <span style="color: #fff; font-weight:bold;">${rev.name} (${stars})</span>
-                            <div>
+                            <div style="display:flex;">
                                 <button class="reply-btn-sm" data-id="${rev.id}" title="Reply"><i class="fa-solid fa-reply"></i></button>
                                 <button class="delete-btn-sm delete-rev-btn" data-id="${rev.id}" title="Delete"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </div>
-                        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:5px;">"${rev.text}"</p>
+                        <p style="color:var(--text-muted); font-size:0.9rem;">"${rev.text}"</p>
                         ${rev.reply ? `<p style="color:var(--primary-accent); font-size:0.8rem;">Reply: ${rev.reply}</p>` : ''}
                     </div>
                 `;
@@ -569,6 +614,7 @@
                     if(e.currentTarget.getAttribute('data-view') === 'workout') {
                         renderDay(document.querySelector('.days-nav li.active').getAttribute('data-day'));
                     }
+                    window.scrollTo(0,0);
                 });
             });
 
@@ -594,187 +640,4 @@
             function renderDay(dayKey) {
                 if(dayKey !== 'monday' && !isVIPUnlocked) {
                     exercisesContainer.style.display = 'none';
-                    dayHeader.style.display = 'none';
-                    lockScreen.style.display = 'flex';
-                    return;
-                }
-
-                lockScreen.style.display = 'none';
-                exercisesContainer.style.display = 'flex';
-                dayHeader.style.display = 'block';
-
-                const data = workoutPlan[dayKey];
-                if (!data) return;
-
-                document.getElementById('day-title').innerHTML = `<i class="fa-solid fa-dumbbell" style="font-size: 0.8em; color: var(--primary-accent);"></i> ${dayKey.toUpperCase()}`;
-                document.getElementById('day-subtitle').textContent = `${data.title} ${data.focus}`;
-                exercisesContainer.innerHTML = '';
-
-                data.exercises.forEach((ex, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'exercise-card';
-                    card.style.animationDelay = `${index * 0.1}s`;
-                    
-                    // Invisible shield over YouTube iframe is built-in with 'pointer-events: none;'
-                    card.innerHTML = `
-                        <div class="exercise-info">
-                            <h3 class="exercise-name">${ex.name}</h3>
-                            <div class="badges">
-                                <span class="badge target"><i class="fa-solid fa-bullseye"></i> ${ex.target}</span>
-                                <span class="badge sets"><i class="fa-solid fa-layer-group"></i> ${ex.sets}</span>
-                            </div>
-                            <p class="exercise-desc">
-                                <i class="fa-solid fa-bolt" style="color: var(--primary-accent); margin-right: 8px;"></i>
-                                ${ex.effect}
-                            </p>
-                        </div>
-                        <div class="exercise-visual" style="padding: 0; background: transparent; width: 320px; height: 320px; max-width: 100%;">
-                            ${ex.video 
-                                ? (ex.video.includes('youtube') || ex.video.includes('youtu.be')
-                                    ? `<iframe width="100%" height="100%" src="${ex.video}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&playsinline=1&loop=1&playlist=${ex.video.split('/').pop().split('?')[0]}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 20px; pointer-events: none;"></iframe>`
-                                    : `<video width="100%" height="100%" autoplay loop playsinline controls style="border-radius: 20px; object-fit: cover;"><source src="${ex.video}" type="video/mp4"></video>`)
-                                : `<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(145deg, #12141f, #0b0c12); border-radius: 20px;"><span style="color: rgba(255,255,255,0.3);">Video Not Available</span></div>`
-                            }
-                        </div>
-                    `;
-                    exercisesContainer.appendChild(card);
-                });
-                
-                if(isVIPUnlocked) {
-                    document.querySelectorAll('.fa-lock').forEach(icon => {
-                        if(icon.parentElement.tagName === 'LI') {
-                            icon.className = 'fa-solid fa-unlock';
-                            icon.style.color = '#00ff88';
-                        }
-                    });
-                }
-            }
-
-            document.getElementById('unlock-btn').addEventListener('click', () => {
-                const inputPwd = document.getElementById('vip-password').value.trim();
-                if(savedVIPCodes.some(item => item.code === inputPwd)) { 
-                    isVIPUnlocked = true;
-                    document.getElementById('lock-error').style.display = 'none';
-                    lockScreen.style.transform = 'scale(0.9)';
-                    lockScreen.style.opacity = '0';
-                    setTimeout(() => renderDay(document.querySelector('.days-nav li.active').getAttribute('data-day')), 300);
-                } else {
-                    document.getElementById('lock-error').style.display = 'block';
-                    document.getElementById('lock-error').style.animation = 'fadeInUp 0.3s ease';
-                }
-            });
-
-            // --- PUBLIC REVIEWS LOGIC ---
-            renderReviews(); // Initial render
-            
-            // Check review limit on load
-            if(myReviewCount >= 2) {
-                document.getElementById('public-review-box').style.display = 'none';
-                document.getElementById('pub-rev-limit-msg').style.display = 'block';
-            }
-
-            document.getElementById('pub-rev-submit').addEventListener('click', () => {
-                const name = document.getElementById('pub-rev-name').value.trim();
-                const text = document.getElementById('pub-rev-text').value.trim();
-                const rating = document.getElementById('pub-rev-rating').value;
-
-                if(!name || !text) { alert("Please fill all fields"); return; }
-                if(myReviewCount >= 2) { alert("Limit reached!"); return; }
-
-                savedReviews.push({ id: Date.now(), name, rating: parseInt(rating), text, reply: "" });
-                myReviewCount++;
-                saveToStorage();
-                renderReviews();
-                
-                if(myReviewCount >= 2) {
-                    document.getElementById('public-review-box').style.display = 'none';
-                    document.getElementById('pub-rev-limit-msg').style.display = 'block';
-                } else {
-                    document.getElementById('pub-rev-name').value = '';
-                    document.getElementById('pub-rev-text').value = '';
-                }
-            });
-
-            // --- ADMIN PANEL LOGIC ---
-            let logoClicks = 0, logoTimer = null, isAdminIn = false;
-            
-            document.getElementById('main-logo').addEventListener('click', () => {
-                logoClicks++;
-                clearTimeout(logoTimer);
-                if(logoClicks === 5) { 
-                    logoClicks = 0;
-                    views.forEach(v => v.classList.remove('active'));
-                    viewLinks.forEach(l => l.classList.remove('active'));
-                    document.getElementById('view-admin').classList.add('active');
-                    
-                    if(isAdminIn) {
-                        document.getElementById('admin-login-screen').style.display = 'none';
-                        document.getElementById('admin-dashboard-screen').style.display = 'block';
-                    } else {
-                        document.getElementById('admin-login-screen').style.display = 'flex';
-                        document.getElementById('admin-dashboard-screen').style.display = 'none';
-                    }
-                }
-                logoTimer = setTimeout(() => logoClicks = 0, 1000);
-            });
-
-            document.getElementById('admin-login-btn').addEventListener('click', () => {
-                if(document.getElementById('admin-password').value === '00998877') {
-                    isAdminIn = true;
-                    document.getElementById('admin-error').style.display = 'none';
-                    document.getElementById('admin-login-screen').style.display = 'none';
-                    document.getElementById('admin-dashboard-screen').style.display = 'block';
-                    renderAdminCodes();
-                } else {
-                    document.getElementById('admin-error').style.display = 'block';
-                }
-            });
-
-            document.getElementById('admin-logout-btn').addEventListener('click', () => {
-                isAdminIn = false;
-                document.getElementById('admin-password').value = '';
-                document.getElementById('admin-dashboard-screen').style.display = 'none';
-                document.getElementById('admin-login-screen').style.display = 'flex';
-            });
-
-            // Admin Tabs
-            document.getElementById('tab-btn-codes').addEventListener('click', (e) => {
-                e.target.classList.add('active'); document.getElementById('tab-btn-reviews').classList.remove('active');
-                document.getElementById('admin-tab-codes').style.display = 'block'; document.getElementById('admin-tab-reviews').style.display = 'none';
-            });
-            document.getElementById('tab-btn-reviews').addEventListener('click', (e) => {
-                e.target.classList.add('active'); document.getElementById('tab-btn-codes').classList.remove('active');
-                document.getElementById('admin-tab-reviews').style.display = 'block'; document.getElementById('admin-tab-codes').style.display = 'none';
-            });
-
-            // Admin Search & Generate Code
-            document.getElementById('search-code-input').addEventListener('input', (e) => renderAdminCodes(e.target.value));
-            
-            document.getElementById('generate-code-btn').addEventListener('click', () => {
-                const n = document.getElementById('new-client-name').value.trim();
-                if(!n) { alert("Enter name!"); return; }
-                const code = `VIP-${n.split(' ')[0].toUpperCase()}-${Math.floor(1000+Math.random()*9000)}`;
-                savedVIPCodes.push({ client: n, code });
-                saveToStorage();
-                document.getElementById('new-client-name').value = '';
-                renderAdminCodes(document.getElementById('search-code-input').value);
-                alert(`Created: ${code}`);
-            });
-
-            // Admin Add Custom Review
-            document.getElementById('admin-add-rev-btn').addEventListener('click', () => {
-                const name = document.getElementById('admin-rev-name-input').value.trim();
-                const text = document.getElementById('admin-rev-text-input').value.trim();
-                const rating = document.getElementById('admin-rev-rating-input').value;
-                if(!name || !text) { alert("Fill all fields"); return; }
-                savedReviews.push({ id: Date.now(), name, rating: parseInt(rating), text, reply: "" });
-                saveToStorage();
-                renderReviews();
-                document.getElementById('admin-rev-name-input').value = '';
-                document.getElementById('admin-rev-text-input').value = '';
-                alert("Dummy review added successfully!");
-            });
-        });
-    </script>
-</body>
-</html>
+                    dayHeader.style.display
