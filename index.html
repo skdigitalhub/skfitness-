@@ -21,72 +21,24 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg-color); 
-            color: var(--text-main); 
-            min-height: 100vh; 
-            display: flex; 
-            overflow: hidden; 
-            position: relative;
-        }
-
-        /* Gym Watermark Background */
-        .gym-watermark {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg);
-            font-size: 40vw; color: rgba(255, 255, 255, 0.015); pointer-events: none; z-index: 0;
-        }
-
-        /* 3D Interactive Mouse Glow */
-        .cursor-glow {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 1; 
-            background: radial-gradient(circle 600px at var(--cursor-x, 50%) var(--cursor-y, 50%), rgba(0, 240, 255, 0.08), transparent 40%),
-                        radial-gradient(circle 800px at calc(var(--cursor-x, 50%) - 150px) calc(var(--cursor-y, 50%) + 150px), rgba(112, 0, 255, 0.08), transparent 40%);
-            opacity: 0; transition: opacity 1s ease;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; overflow: hidden; position: relative; }
+        .gym-watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg); font-size: 40vw; color: rgba(255, 255, 255, 0.015); pointer-events: none; z-index: 0; }
+        .cursor-glow { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1; background: radial-gradient(circle 600px at var(--cursor-x, 50%) var(--cursor-y, 50%), rgba(0, 240, 255, 0.08), transparent 40%), radial-gradient(circle 800px at calc(var(--cursor-x, 50%) - 150px) calc(var(--cursor-y, 50%) + 150px), rgba(112, 0, 255, 0.08), transparent 40%); opacity: 0; transition: opacity 1s ease; }
         body:hover .cursor-glow { opacity: 1; }
-
-        .bg-base {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: radial-gradient(circle at 15% 50%, rgba(112, 0, 255, 0.05), transparent 25%), 
-                              radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.05), transparent 25%);
-            z-index: 0; pointer-events: none;
-        }
-
+        .bg-base { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: radial-gradient(circle at 15% 50%, rgba(112, 0, 255, 0.05), transparent 25%), radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.05), transparent 25%); z-index: 0; pointer-events: none; }
+        
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
         
         .app-container { display: flex; width: 100%; height: 100vh; z-index: 10; position: relative; }
         
-        /* Sidebar (Main Navigation) */
-        .sidebar { 
-            width: 280px; background: var(--sidebar-bg); backdrop-filter: var(--glass-blur); 
-            border-right: 1px solid var(--glass-border); padding: 2rem 1rem; display: flex; 
-            flex-direction: column; z-index: 10;
-            animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-        }
-        
-        .logo { 
-            font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 800; display: flex; 
-            align-items: center; gap: 1rem; margin-bottom: 3rem; padding-left: 1rem; 
-            background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            cursor: pointer; user-select: none;
-            animation: fadeInDown 0.8s 0.2s ease backwards;
-        }
-        
+        /* Sidebar */
+        .sidebar { width: 280px; background: var(--sidebar-bg); backdrop-filter: var(--glass-blur); border-right: 1px solid var(--glass-border); padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 10; animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 800; display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; padding-left: 1rem; background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; user-select: none; animation: fadeInDown 0.8s 0.2s ease backwards; }
         .nav-section-title { font-size: 0.8rem; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; padding-left: 1.5rem; font-weight: bold;}
-        
         .nav-links { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-        .nav-links li { 
-            padding: 1rem 1.5rem; border-radius: 12px; cursor: pointer; font-size: 1.1rem; 
-            font-weight: 500; display: flex; align-items: center; gap: 1rem; transition: all 0.3s ease; 
-            color: var(--text-muted); border: 1px solid transparent; 
-            animation: slideInLeft 0.5s ease backwards;
-        }
-        
+        .nav-links li { padding: 1rem 1.5rem; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: 500; display: flex; align-items: center; gap: 1rem; transition: all 0.3s ease; color: var(--text-muted); border: 1px solid transparent; animation: slideInLeft 0.5s ease backwards; }
         .nav-links li:hover { background: var(--card-hover); color: var(--text-main); transform: translateX(5px); }
         .nav-links li.active { background: linear-gradient(90deg, rgba(112, 0, 255, 0.2), transparent); color: var(--primary-accent); border-left: 4px solid var(--primary-accent); border-radius: 4px 12px 12px 4px; }
         
@@ -96,19 +48,16 @@
         .view-section { display: none; animation: fadeIn 0.5s ease backwards; }
         .view-section.active { display: block; }
         
-        /* Days Horizontal Nav (Hover Fixed) */
+        /* Workout View */
         .days-nav { display: flex; gap: 1rem; list-style: none; overflow-x: auto; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--glass-border); }
         .days-nav li { padding: 0.8rem 1.5rem; background: rgba(255,255,255,0.05); border-radius: 50px; cursor: pointer; white-space: nowrap; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); color: var(--text-muted); display: flex; align-items: center; gap: 8px; border: 1px solid transparent; }
-        
         .days-nav li:hover { background: var(--card-hover); color: white; transform: translateY(-4px); border-color: rgba(255,255,255,0.1); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
         .days-nav li.active { background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); color: #000; font-weight: bold; transform: scale(1.05); box-shadow: 0 10px 25px rgba(0, 240, 255, 0.3); border-color: transparent; }
-        
         .free-badge { background: #00ff88; color: #000; font-size: 0.65rem; padding: 2px 8px; border-radius: 10px; font-weight: 800; letter-spacing: 1px;}
         
         .day-header h1 { font-family: 'Outfit', sans-serif; font-size: 4rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; text-shadow: 0 0 20px rgba(255, 255, 255, 0.1); display: flex; align-items: center; gap: 15px;}
         .day-header p { font-size: 1.2rem; color: var(--primary-accent); font-weight: 500; letter-spacing: 1px; margin-bottom: 3rem;}
         
-        /* Exercises Cards */
         .exercises-container { display: flex; flex-direction: column; gap: 2rem; padding-bottom: 4rem; }
         .exercise-card { display: flex; background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 24px; padding: 2rem; gap: 2.5rem; transition: 0.3s ease; animation: fadeInUp 0.6s ease backwards; }
         .exercise-card:hover { transform: translateY(-5px) scale(1.01); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(112, 0, 255, 0.1); border-color: rgba(255, 255, 255, 0.15); }
@@ -128,32 +77,41 @@
         .lock-card h2 { font-family: 'Outfit', sans-serif; font-size: 2.2rem; margin-bottom: 1rem; color: #fff;}
         .lock-card p { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.5;}
         .input-group { display: flex; flex-direction: column; gap: 1rem; }
-        .input-group input { padding: 1.2rem; border-radius: 12px; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); color: #fff; font-size: 1.2rem; text-align: center; outline: none; transition: 0.3s; letter-spacing: 2px;}
-        .input-group input:focus { border-color: var(--primary-accent); box-shadow: 0 0 15px rgba(0,240,255,0.2); }
-        .input-group button { padding: 1.2rem; border-radius: 12px; background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); color: #fff; border: none; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;}
-        .input-group button:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(112,0,255,0.4); }
+        .input-group input, .admin-input { padding: 1.2rem; border-radius: 12px; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); color: #fff; font-size: 1.1rem; outline: none; transition: 0.3s; }
+        .input-group input:focus, .admin-input:focus { border-color: var(--primary-accent); box-shadow: 0 0 15px rgba(0,240,255,0.2); }
+        .input-group button, .admin-btn { padding: 1.2rem; border-radius: 12px; background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); color: #fff; border: none; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;}
+        .input-group button:hover, .admin-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(112,0,255,0.4); }
         .error-msg { color: #ff3366 !important; margin-top: 1rem; font-weight: bold; font-size: 0.9rem !important; margin-bottom: 0 !important; display: none;}
 
-        /* Hero Button Fix */
         #demo-btn { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         #demo-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 15px 30px rgba(112,0,255,0.5); }
 
-        /* Contact Cards */
+        /* Social Cards */
         .social-cards { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 3rem; justify-content: center;}
         .social-card { flex: 1; max-width: 300px; background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); padding: 3rem 2rem; border-radius: 24px; text-align: center; cursor: pointer; transition: 0.3s; text-decoration: none; color: white;}
         .social-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); box-shadow: 0 15px 30px rgba(0,0,0,0.3);}
         .social-card i { font-size: 4rem; margin-bottom: 1.5rem; }
-        .social-card.whatsapp:hover i { color: #25D366; text-shadow: 0 0 20px rgba(37,211,102,0.4);}
-        .social-card.instagram:hover i { color: #E1306C; text-shadow: 0 0 20px rgba(225,48,108,0.4);}
-        .social-card h3 { font-family: 'Outfit', sans-serif; font-size: 1.8rem; margin-bottom: 0.5rem;}
-        .social-card p { color: var(--text-muted); font-size: 1.1rem;}
 
-        /* Admin Dashboard Styles */
-        .delete-code-btn { background: transparent; border: none; color: rgba(255,255,255,0.2); cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease; padding: 5px; display: flex; align-items: center; justify-content: center;}
-        .delete-code-btn:hover { color: #ff3366; transform: scale(1.2); text-shadow: 0 0 10px rgba(255,51,102,0.5); }
+        /* Reviews CSS */
+        .review-card { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; animation: fadeInUp 0.5s backwards; }
+        .review-stars { color: #ffc107; font-size: 1.2rem; margin-bottom: 10px; }
+        .review-name { font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; color: #fff;}
+        .review-text { color: var(--text-muted); font-size: 1.1rem; line-height: 1.5; font-style: italic;}
+        .admin-reply-box { margin-top: 1.5rem; padding: 1rem 1.5rem; background: rgba(0, 240, 255, 0.05); border-left: 4px solid var(--primary-accent); border-radius: 8px; }
+        .admin-reply-box h4 { color: var(--primary-accent); margin-bottom: 5px; font-size: 0.9rem; text-transform: uppercase;}
+        
+        /* Admin Tabs */
+        .admin-tabs { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 1rem;}
+        .admin-tab-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; padding: 0.5rem 1rem; transition: 0.3s; font-family: 'Outfit'; font-weight: bold;}
+        .admin-tab-btn.active { color: #ff3366; border-bottom: 2px solid #ff3366; }
 
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        .delete-btn-sm { background: transparent; border: none; color: rgba(255,255,255,0.2); cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease; padding: 5px;}
+        .delete-btn-sm:hover { color: #ff3366; transform: scale(1.2); }
+        .reply-btn-sm { background: transparent; border: none; color: rgba(255,255,255,0.2); cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease; padding: 5px; margin-right: 10px;}
+        .reply-btn-sm:hover { color: var(--primary-accent); transform: scale(1.2); }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
@@ -161,22 +119,20 @@
 <body>
     <div class="bg-base"></div>
     <div class="cursor-glow"></div>
-    
-    <!-- Big faint background dumbbell -->
     <i class="fa-solid fa-dumbbell gym-watermark"></i>
 
     <div class="app-container">
-        <!-- Main Sidebar -->
+        <!-- Sidebar -->
         <nav class="sidebar">
             <div class="logo" id="main-logo" title="SKFitness">
-                <i class="fa-solid fa-dumbbell"></i>
-                <span>SKFitness</span>
+                <i class="fa-solid fa-dumbbell"></i> <span>SKFitness</span>
             </div>
             
             <div class="nav-section-title"><i class="fa-solid fa-bars-staggered" style="margin-right: 5px;"></i> Main Menu</div>
             <ul class="nav-links main-menu" id="main-menu">
                 <li data-view="home" class="active"><i class="fa-solid fa-house"></i> Home</li>
                 <li data-view="workout"><i class="fa-solid fa-fire"></i> VIP Workout</li>
+                <li data-view="reviews"><i class="fa-solid fa-star"></i> Client Reviews</li>
                 <li data-view="contact"><i class="fa-solid fa-paper-plane"></i> Contact Me</li>
             </ul>
         </nav>
@@ -196,7 +152,6 @@
 
             <!-- 2. WORKOUT VIEW -->
             <div id="view-workout" class="view-section">
-                <!-- Days Tab -->
                 <ul class="days-nav" id="days-nav">
                     <li data-day="monday" class="active"><i class="fa-regular fa-calendar-days"></i> Monday <span class="free-badge">FREE</span></li>
                     <li data-day="tuesday"><i class="fa-regular fa-calendar-days"></i> Tuesday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
@@ -211,9 +166,7 @@
                     <p id="day-subtitle">PUSH 1 (Chest, Shoulders, Triceps, Serratus, Neck)</p>
                 </header>
 
-                <div class="exercises-container" id="exercises-container">
-                    <!-- Exercises injected here -->
-                </div>
+                <div class="exercises-container" id="exercises-container"></div>
 
                 <!-- PREMIUM LOCK SCREEN -->
                 <div id="lock-screen" class="lock-screen-container" style="display: none;">
@@ -222,7 +175,7 @@
                         <h2>VIP Access Required</h2>
                         <p>This workout is locked. Enter your premium VIP password to unlock the full 90-day transformation.</p>
                         <div class="input-group">
-                            <input type="password" id="vip-password" placeholder="Enter VIP Code">
+                            <input type="password" id="vip-password" placeholder="Enter VIP Code" style="text-align:center;">
                             <button id="unlock-btn">Unlock Plan <i class="fa-solid fa-key" style="margin-left: 8px;"></i></button>
                         </div>
                         <p class="error-msg" id="lock-error">Incorrect Password. Try again or contact SKFitness.</p>
@@ -230,12 +183,42 @@
                 </div>
             </div>
 
-            <!-- 3. CONTACT VIEW -->
+            <!-- 3. REVIEWS VIEW (PUBLIC) -->
+            <div id="view-reviews" class="view-section">
+                <div style="max-width: 800px; margin: 0 auto; padding: 2rem 0;">
+                    <div style="text-align:center; margin-bottom: 3rem;">
+                        <h1 style="font-size: 3rem; font-family: 'Outfit'; margin-bottom: 1rem;"><i class="fa-solid fa-star" style="color: #ffc107;"></i> Client Success</h1>
+                        <p style="color: var(--text-muted); font-size: 1.1rem;">Read honest reviews from people who have transformed their lives with this program.</p>
+                    </div>
+
+                    <!-- Add Review Form -->
+                    <div id="public-review-box" style="background: var(--card-bg); border: 1px solid var(--glass-border); padding: 2rem; border-radius: 20px; margin-bottom: 3rem;">
+                        <h3 style="margin-bottom: 1.5rem;">Leave Your Review</h3>
+                        <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                            <input type="text" id="pub-rev-name" class="admin-input" placeholder="Your Name" style="flex:1;">
+                            <select id="pub-rev-rating" class="admin-input" style="flex:1; background: rgba(0,0,0,0.5);">
+                                <option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
+                                <option value="4">⭐⭐⭐⭐ 4 Stars</option>
+                                <option value="3">⭐⭐⭐ 3 Stars</option>
+                            </select>
+                        </div>
+                        <textarea id="pub-rev-text" class="admin-input" placeholder="Write your experience with the plan..." rows="3" style="width:100%; margin-bottom:1rem; resize:vertical; font-family:inherit;"></textarea>
+                        <button id="pub-rev-submit" class="admin-btn" style="width:100%;">Post Review</button>
+                    </div>
+                    <div id="pub-rev-limit-msg" style="display:none; text-align:center; color: #ff3366; background: rgba(255,51,102,0.1); padding: 1rem; border-radius: 12px; margin-bottom: 3rem; font-weight: bold;">
+                        <i class="fa-solid fa-circle-check"></i> Thank you! You have submitted the maximum allowed reviews from this device.
+                    </div>
+
+                    <!-- Reviews List -->
+                    <div id="public-reviews-list"></div>
+                </div>
+            </div>
+
+            <!-- 4. CONTACT VIEW -->
             <div id="view-contact" class="view-section">
                 <div style="text-align:center; padding: 4rem 2rem; animation: fadeInUp 0.8s ease;">
                     <h1 style="font-size: 3.5rem; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;"><i class="fa-solid fa-gem" style="color: var(--primary-accent); margin-right: 15px;"></i>Unlock VIP Access</h1>
                     <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Ready to take your physique to the next level? Send a direct message to make your payment and receive your unique VIP password instantly.</p>
-                    
                     <div class="social-cards">
                         <a href="https://wa.me/YOUR_NUMBER" target="_blank" class="social-card whatsapp">
                             <i class="fa-brands fa-whatsapp"></i>
@@ -251,63 +234,85 @@
                 </div>
             </div>
 
-            <!-- 4. SECRET ADMIN VIEW (Contains Login & Dashboard) -->
+            <!-- 5. SECRET ADMIN VIEW -->
             <div id="view-admin" class="view-section">
-                
-                <!-- Admin Login Screen -->
+                <!-- Login -->
                 <div id="admin-login-screen" class="lock-screen-container">
                     <div class="lock-card" style="border-color: rgba(255, 51, 102, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 40px rgba(255, 51, 102, 0.05);">
                         <i class="fa-solid fa-user-shield lock-icon" style="color: #ff3366; text-shadow: 0 0 20px rgba(255,51,102,0.5);"></i>
                         <h2 style="color: #fff;">Admin Authentication</h2>
                         <p>Enter master password to access the control panel.</p>
                         <div class="input-group">
-                            <input type="password" id="admin-password" placeholder="Master Password" style="letter-spacing: 5px;">
+                            <input type="password" id="admin-password" placeholder="Master Password" style="letter-spacing: 5px; text-align:center;">
                             <button id="admin-login-btn" style="background: linear-gradient(135deg, #ff3366, #ff0044);">Login <i class="fa-solid fa-right-to-bracket" style="margin-left: 8px;"></i></button>
                         </div>
-                        <p class="error-msg" id="admin-error">Access Denied. Unauthorized Attempt.</p>
+                        <p class="error-msg" id="admin-error">Access Denied.</p>
                     </div>
                 </div>
 
-                <!-- Admin Dashboard (Hidden initially) -->
-                <div id="admin-dashboard-screen" style="display: none; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); padding: 4rem; border-radius: 24px; max-width: 800px; margin: 0 auto; animation: fadeInUp 0.5s ease;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 3rem;">
+                <!-- Dashboard -->
+                <div id="admin-dashboard-screen" style="display: none; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); padding: 3rem; border-radius: 24px; max-width: 900px; margin: 0 auto; animation: fadeInUp 0.5s ease;">
+                    
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
                         <div style="display: flex; align-items: center; gap: 1rem;">
-                            <i class="fa-solid fa-user-shield" style="font-size: 3rem; color: #ff3366;"></i>
+                            <i class="fa-solid fa-user-shield" style="font-size: 2.5rem; color: #ff3366;"></i>
                             <div>
-                                <h1 style="font-size: 2.5rem; font-family: 'Outfit', sans-serif;">Admin Dashboard</h1>
-                                <p style="color: var(--text-muted); font-size: 1rem;">Welcome Boss. Control your clients here.</p>
+                                <h1 style="font-size: 2rem; font-family: 'Outfit';">Admin Control Panel</h1>
                             </div>
                         </div>
-                        <button id="admin-logout-btn" style="background: transparent; color: #a0a5ba; border: 1px solid rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 8px; cursor: pointer; transition: 0.3s;"><i class="fa-solid fa-arrow-right-from-bracket"></i> Lock Panel</button>
+                        <button id="admin-logout-btn" style="background: transparent; color: #a0a5ba; border: 1px solid rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 8px; cursor: pointer;"><i class="fa-solid fa-lock"></i> Lock Panel</button>
+                    </div>
+
+                    <!-- Admin Tabs -->
+                    <div class="admin-tabs">
+                        <button id="tab-btn-codes" class="admin-tab-btn active"><i class="fa-solid fa-key"></i> VIP Codes</button>
+                        <button id="tab-btn-reviews" class="admin-tab-btn"><i class="fa-solid fa-star"></i> Reviews Manager</button>
                     </div>
                     
-                    <div style="background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 16px; border: 1px solid var(--glass-border); margin-bottom: 2rem;">
-                        <h3 style="margin-bottom: 1.5rem; font-family: 'Outfit', sans-serif; font-size: 1.5rem;"><i class="fa-solid fa-key" style="margin-right: 10px; color: #ff3366;"></i>Generate New VIP Code</h3>
-                        <div style="display: flex; gap: 1rem;">
-                            <input type="text" placeholder="Enter Client's Name" style="padding: 1.2rem; border-radius: 12px; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); color: #fff; flex: 1; font-size: 1.1rem; outline: none;">
-                            <button style="padding: 1.2rem 2.5rem; border-radius: 12px; background: #ff3366; color: #fff; border: none; cursor: pointer; font-weight: bold; font-size: 1.1rem; transition: 0.3s;">Generate Code</button>
+                    <!-- TAB 1: CODES -->
+                    <div id="admin-tab-codes">
+                        <div style="background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 16px; border: 1px solid var(--glass-border); margin-bottom: 2rem;">
+                            <h3 style="margin-bottom: 1rem; font-family: 'Outfit';">Generate New VIP Code</h3>
+                            <div style="display: flex; gap: 1rem;">
+                                <input type="text" id="new-client-name" class="admin-input" placeholder="Enter Client's Name" style="flex: 1;">
+                                <button id="generate-code-btn" class="admin-btn" style="background: #ff3366;">Generate Code</button>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div style="background: rgba(0,240,255,0.05); padding: 2rem; border-radius: 16px; border: 1px solid rgba(0,240,255,0.2);">
-                        <h3 style="margin-bottom: 1rem; color: var(--primary-accent); font-family: 'Outfit', sans-serif;"><i class="fa-solid fa-list-check" style="margin-right: 10px;"></i>Active VIP Codes</h3>
                         
-                        <div class="code-row" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                            <span style="color: #fff;">Client: Rahul Sharma</span>
-                            <div style="display: flex; gap: 1.5rem; align-items: center;">
-                                <span style="color: #00ff88; font-family: monospace; font-size: 1.2rem; font-weight: bold; letter-spacing: 1px;">VIP-RAHUL-8492</span>
-                                <button class="delete-code-btn" title="Revoke Access"><i class="fa-solid fa-trash"></i></button>
+                        <div style="background: rgba(0,240,255,0.05); padding: 2rem; border-radius: 16px; border: 1px solid rgba(0,240,255,0.2);">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1.5rem;">
+                                <h3 style="color: var(--primary-accent); font-family: 'Outfit'; margin:0;">Active VIP Codes</h3>
+                                <!-- SEARCH BAR FOR ADMIN -->
+                                <div style="position:relative; width: 250px;">
+                                    <i class="fa-solid fa-magnifying-glass" style="position:absolute; left: 15px; top: 15px; color: var(--text-muted);"></i>
+                                    <input type="text" id="search-code-input" class="admin-input" placeholder="Search name or code..." style="padding: 0.8rem 1rem 0.8rem 2.5rem; width: 100%; border-radius: 50px; font-size:1rem;">
+                                </div>
                             </div>
+                            <div id="active-codes-list"></div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: REVIEWS -->
+                    <div id="admin-tab-reviews" style="display: none;">
+                        <div style="background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 16px; border: 1px solid var(--glass-border); margin-bottom: 2rem;">
+                            <h3 style="margin-bottom: 1rem; font-family: 'Outfit';"><i class="fa-solid fa-plus"></i> Add Dummy/Custom Review</h3>
+                            <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                                <input type="text" id="admin-rev-name-input" class="admin-input" placeholder="Client Name" style="flex: 1;">
+                                <select id="admin-rev-rating-input" class="admin-input" style="flex: 1; background: rgba(0,0,0,0.5);">
+                                    <option value="5">5 Stars</option>
+                                    <option value="4">4 Stars</option>
+                                </select>
+                            </div>
+                            <textarea id="admin-rev-text-input" class="admin-input" placeholder="Review Text..." rows="2" style="width:100%; margin-bottom:1rem;"></textarea>
+                            <button id="admin-add-rev-btn" class="admin-btn" style="width: 100%;">Add to Public Page</button>
                         </div>
 
-                        <div class="code-row" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem;">
-                            <span style="color: #fff;">Client: Amit Kumar</span>
-                            <div style="display: flex; gap: 1.5rem; align-items: center;">
-                                <span style="color: #00ff88; font-family: monospace; font-size: 1.2rem; font-weight: bold; letter-spacing: 1px;">VIP-AMIT-2231</span>
-                                <button class="delete-code-btn" title="Revoke Access"><i class="fa-solid fa-trash"></i></button>
-                            </div>
+                        <div style="background: rgba(255,193,7,0.05); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,193,7,0.2);">
+                            <h3 style="margin-bottom: 1.5rem; color: #ffc107; font-family: 'Outfit';">Manage Public Reviews</h3>
+                            <div id="admin-reviews-list"></div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -315,14 +320,13 @@
     </div>
 
     <script>
-        // --- 1. Mouse Tracking Logic ---
         const cursorGlow = document.querySelector('.cursor-glow');
         document.addEventListener('mousemove', (e) => {
             cursorGlow.style.setProperty('--cursor-x', `${e.clientX}px`);
             cursorGlow.style.setProperty('--cursor-y', `${e.clientY}px`);
         });
 
-        // --- 2. Data Payload ---
+        // --- DATA PAYLOAD ---
         const workoutPlan = {
   "monday": {
     "title": "PUSH 1",
@@ -417,56 +421,169 @@
   }
 };
 
-        // --- 3. App Logic (SPA & Lock System) ---
+        // --- LOCAL STORAGE LOGIC ---
+        let savedVIPCodes = JSON.parse(localStorage.getItem('skfitness_vip_codes')) || [
+            { client: "Default Testing Code", code: "1234567" }
+        ];
+
+        let savedReviews = JSON.parse(localStorage.getItem('skfitness_reviews')) || [
+            { id: 1, name: "Rahul Sharma", rating: 5, text: "Bhai ka plan ekdum aag hai! Pehle week me hi pump feel ho raha hai. Videos bohot helpful hain.", reply: "Thanks Rahul! Keep pushing hard bro 🔥" },
+            { id: 2, name: "Amit K.", rating: 4, text: "Worth every penny. Mujhe humesha doubt rehta tha form ka, but videos dekh kar ab perfect form me lift karta hu.", reply: "" }
+        ];
+        
+        let myReviewCount = parseInt(localStorage.getItem('skfitness_my_review_count')) || 0;
+
+        function saveToStorage() {
+            localStorage.setItem('skfitness_vip_codes', JSON.stringify(savedVIPCodes));
+            localStorage.setItem('skfitness_reviews', JSON.stringify(savedReviews));
+            localStorage.setItem('skfitness_my_review_count', myReviewCount.toString());
+        }
+
+        // --- RENDER FUNCTIONS ---
+        function renderAdminCodes(searchTerm = '') {
+            const listContainer = document.getElementById('active-codes-list');
+            listContainer.innerHTML = '';
+            
+            const filteredCodes = savedVIPCodes.filter(c => 
+                c.client.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                c.code.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+
+            if(filteredCodes.length === 0) {
+                listContainer.innerHTML = `<p style="color:var(--text-muted); text-align:center;">No codes found.</p>`;
+                return;
+            }
+            
+            filteredCodes.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'code-row';
+                row.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);';
+                row.innerHTML = `
+                    <span style="color: #fff;">Client: ${item.client}</span>
+                    <div style="display: flex; gap: 1.5rem; align-items: center;">
+                        <span style="color: #00ff88; font-family: monospace; font-size: 1.2rem; font-weight: bold; letter-spacing: 1px;">${item.code}</span>
+                        <button class="delete-btn-sm" data-code="${item.code}" title="Revoke Access"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+                listContainer.appendChild(row);
+            });
+
+            document.querySelectorAll('.delete-btn-sm').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    if(confirm("Are you sure you want to REVOKE this VIP Code?")) {
+                        const codeToDelete = e.currentTarget.getAttribute('data-code');
+                        savedVIPCodes = savedVIPCodes.filter(c => c.code !== codeToDelete);
+                        saveToStorage();
+                        e.currentTarget.closest('.code-row').style.opacity = '0';
+                        setTimeout(() => renderAdminCodes(document.getElementById('search-code-input').value), 300);
+                    }
+                });
+            });
+        }
+
+        function renderReviews() {
+            const clientList = document.getElementById('public-reviews-list');
+            const adminList = document.getElementById('admin-reviews-list');
+            clientList.innerHTML = ''; adminList.innerHTML = '';
+
+            savedReviews.slice().reverse().forEach(rev => {
+                const stars = '⭐'.repeat(rev.rating);
+                
+                // Public View HTML
+                const pubHtml = `
+                    <div class="review-card">
+                        <div class="review-stars">${stars}</div>
+                        <div class="review-name">${rev.name}</div>
+                        <div class="review-text">"${rev.text}"</div>
+                        ${rev.reply ? `
+                        <div class="admin-reply-box">
+                            <h4>Coach SKFitness Reply:</h4>
+                            <p style="color: #fff; font-size: 1rem;">${rev.reply}</p>
+                        </div>` : ''}
+                    </div>
+                `;
+                clientList.innerHTML += pubHtml;
+
+                // Admin View HTML
+                const admHtml = `
+                    <div class="code-row" style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                            <span style="color: #fff; font-weight:bold;">${rev.name} (${stars})</span>
+                            <div>
+                                <button class="reply-btn-sm" data-id="${rev.id}" title="Reply"><i class="fa-solid fa-reply"></i></button>
+                                <button class="delete-btn-sm delete-rev-btn" data-id="${rev.id}" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:5px;">"${rev.text}"</p>
+                        ${rev.reply ? `<p style="color:var(--primary-accent); font-size:0.8rem;">Reply: ${rev.reply}</p>` : ''}
+                    </div>
+                `;
+                adminList.innerHTML += admHtml;
+            });
+
+            // Admin Review Event Listeners
+            document.querySelectorAll('.delete-rev-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    if(confirm("Delete this review?")) {
+                        const id = parseInt(e.currentTarget.getAttribute('data-id'));
+                        savedReviews = savedReviews.filter(r => r.id !== id);
+                        saveToStorage();
+                        renderReviews();
+                    }
+                });
+            });
+
+            document.querySelectorAll('.reply-btn-sm').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.currentTarget.getAttribute('data-id'));
+                    const replyTxt = prompt("Enter your reply (It will be visible publicly):");
+                    if(replyTxt) {
+                        const r = savedReviews.find(x => x.id === id);
+                        if(r) { r.reply = replyTxt; saveToStorage(); renderReviews(); }
+                    }
+                });
+            });
+        }
+
+        // --- APP LOGIC ---
         let isVIPUnlocked = false;
 
         document.addEventListener('DOMContentLoaded', () => {
             const viewLinks = document.querySelectorAll('.main-menu li');
             const views = document.querySelectorAll('.view-section');
             const dayLinks = document.querySelectorAll('.days-nav li');
-            
             const exercisesContainer = document.getElementById('exercises-container');
             const dayHeader = document.getElementById('day-header');
             const lockScreen = document.getElementById('lock-screen');
-            const dayTitle = document.getElementById('day-title');
-            const daySubtitle = document.getElementById('day-subtitle');
 
-            // Home Button Fix
-            document.getElementById('demo-btn').addEventListener('click', () => {
-                document.querySelector('[data-view="workout"]').click();
-            });
+            // Navigation
+            document.getElementById('demo-btn').addEventListener('click', () => { document.querySelector('[data-view="workout"]').click(); });
 
-            // View Switcher (Main Menu)
             viewLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     viewLinks.forEach(l => l.classList.remove('active'));
                     e.currentTarget.classList.add('active');
-                    const viewName = e.currentTarget.getAttribute('data-view');
-                    
                     views.forEach(v => v.classList.remove('active'));
-                    document.getElementById(`view-${viewName}`).classList.add('active');
+                    document.getElementById(`view-${e.currentTarget.getAttribute('data-view')}`).classList.add('active');
 
-                    if(viewName === 'workout') {
-                        const activeDay = document.querySelector('.days-nav li.active').getAttribute('data-day');
-                        renderDay(activeDay);
+                    if(e.currentTarget.getAttribute('data-view') === 'workout') {
+                        renderDay(document.querySelector('.days-nav li.active').getAttribute('data-day'));
                     }
                 });
             });
 
-            // Day Switcher (Monday - Saturday)
+            // Day Switching & Freemium Check
             dayLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     dayLinks.forEach(l => l.classList.remove('active'));
                     e.currentTarget.classList.add('active');
-                    const day = e.currentTarget.getAttribute('data-day');
-                    
                     exercisesContainer.style.opacity = '0';
                     dayHeader.style.opacity = '0';
                     lockScreen.style.opacity = '0';
                     
                     setTimeout(() => {
-                        renderDay(day);
-                        void exercisesContainer.offsetWidth; // trigger reflow
+                        renderDay(e.currentTarget.getAttribute('data-day'));
+                        void exercisesContainer.offsetWidth; 
                         exercisesContainer.style.opacity = '1';
                         dayHeader.style.opacity = '1';
                         lockScreen.style.opacity = '1';
@@ -474,7 +591,6 @@
                 });
             });
 
-            // Render Day Logic (The Freemium Engine)
             function renderDay(dayKey) {
                 if(dayKey !== 'monday' && !isVIPUnlocked) {
                     exercisesContainer.style.display = 'none';
@@ -490,8 +606,8 @@
                 const data = workoutPlan[dayKey];
                 if (!data) return;
 
-                dayTitle.innerHTML = `<i class="fa-solid fa-dumbbell" style="font-size: 0.8em; color: var(--primary-accent);"></i> ${dayKey.toUpperCase()}`;
-                daySubtitle.textContent = `${data.title} ${data.focus}`;
+                document.getElementById('day-title').innerHTML = `<i class="fa-solid fa-dumbbell" style="font-size: 0.8em; color: var(--primary-accent);"></i> ${dayKey.toUpperCase()}`;
+                document.getElementById('day-subtitle').textContent = `${data.title} ${data.focus}`;
                 exercisesContainer.innerHTML = '';
 
                 data.exercises.forEach((ex, index) => {
@@ -499,6 +615,7 @@
                     card.className = 'exercise-card';
                     card.style.animationDelay = `${index * 0.1}s`;
                     
+                    // Invisible shield over YouTube iframe is built-in with 'pointer-events: none;'
                     card.innerHTML = `
                         <div class="exercise-info">
                             <h3 class="exercise-name">${ex.name}</h3>
@@ -511,16 +628,12 @@
                                 ${ex.effect}
                             </p>
                         </div>
-                        <div class="exercise-visual" style="padding: 0; background: transparent; width: ${ex.vWidth || '320px'}; height: ${ex.vHeight || '320px'}; max-width: 100%;">
+                        <div class="exercise-visual" style="padding: 0; background: transparent; width: 320px; height: 320px; max-width: 100%;">
                             ${ex.video 
-                                ? (ex.video.includes('youtube.com') || ex.video.includes('youtu.be')
+                                ? (ex.video.includes('youtube') || ex.video.includes('youtu.be')
                                     ? `<iframe width="100%" height="100%" src="${ex.video}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&playsinline=1&loop=1&playlist=${ex.video.split('/').pop().split('?')[0]}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 20px; pointer-events: none;"></iframe>`
-                                    : `<video width="100%" height="100%" autoplay loop playsinline controls style="border-radius: 20px; object-fit: cover;">
-                                         <source src="${ex.video}" type="video/mp4">
-                                       </video>`)
-                                : `<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(145deg, #12141f, #0b0c12); border-radius: 20px;">
-                                     <span style="color: rgba(255,255,255,0.3);">Video Not Available</span>
-                                   </div>`
+                                    : `<video width="100%" height="100%" autoplay loop playsinline controls style="border-radius: 20px; object-fit: cover;"><source src="${ex.video}" type="video/mp4"></video>`)
+                                : `<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(145deg, #12141f, #0b0c12); border-radius: 20px;"><span style="color: rgba(255,255,255,0.3);">Video Not Available</span></div>`
                             }
                         </div>
                     `;
@@ -537,45 +650,64 @@
                 }
             }
 
-            // Client Unlock VIP Button Check
             document.getElementById('unlock-btn').addEventListener('click', () => {
-                const pwd = document.getElementById('vip-password').value;
-                if(pwd === '1234567') { 
+                const inputPwd = document.getElementById('vip-password').value.trim();
+                if(savedVIPCodes.some(item => item.code === inputPwd)) { 
                     isVIPUnlocked = true;
                     document.getElementById('lock-error').style.display = 'none';
-                    const activeDay = document.querySelector('.days-nav li.active').getAttribute('data-day');
-                    
                     lockScreen.style.transform = 'scale(0.9)';
                     lockScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        renderDay(activeDay);
-                    }, 300);
-                    
+                    setTimeout(() => renderDay(document.querySelector('.days-nav li.active').getAttribute('data-day')), 300);
                 } else {
                     document.getElementById('lock-error').style.display = 'block';
                     document.getElementById('lock-error').style.animation = 'fadeInUp 0.3s ease';
                 }
             });
 
+            // --- PUBLIC REVIEWS LOGIC ---
+            renderReviews(); // Initial render
+            
+            // Check review limit on load
+            if(myReviewCount >= 2) {
+                document.getElementById('public-review-box').style.display = 'none';
+                document.getElementById('pub-rev-limit-msg').style.display = 'block';
+            }
 
-            // --- 4. SECRET ADMIN LOGIC ---
-            let logoClickCount = 0;
-            let logoClickTimer;
-            let isAdminLoggedIn = false;
+            document.getElementById('pub-rev-submit').addEventListener('click', () => {
+                const name = document.getElementById('pub-rev-name').value.trim();
+                const text = document.getElementById('pub-rev-text').value.trim();
+                const rating = document.getElementById('pub-rev-rating').value;
 
-            // Open Admin Panel
-            document.getElementById('main-logo').addEventListener('click', () => {
-                logoClickCount++;
-                clearTimeout(logoClickTimer);
+                if(!name || !text) { alert("Please fill all fields"); return; }
+                if(myReviewCount >= 2) { alert("Limit reached!"); return; }
+
+                savedReviews.push({ id: Date.now(), name, rating: parseInt(rating), text, reply: "" });
+                myReviewCount++;
+                saveToStorage();
+                renderReviews();
                 
-                if(logoClickCount === 5) { 
-                    logoClickCount = 0;
+                if(myReviewCount >= 2) {
+                    document.getElementById('public-review-box').style.display = 'none';
+                    document.getElementById('pub-rev-limit-msg').style.display = 'block';
+                } else {
+                    document.getElementById('pub-rev-name').value = '';
+                    document.getElementById('pub-rev-text').value = '';
+                }
+            });
+
+            // --- ADMIN PANEL LOGIC ---
+            let logoClicks = 0, logoTimer = null, isAdminIn = false;
+            
+            document.getElementById('main-logo').addEventListener('click', () => {
+                logoClicks++;
+                clearTimeout(logoTimer);
+                if(logoClicks === 5) { 
+                    logoClicks = 0;
                     views.forEach(v => v.classList.remove('active'));
                     viewLinks.forEach(l => l.classList.remove('active'));
                     document.getElementById('view-admin').classList.add('active');
-
-                    // Check if already logged in
-                    if(isAdminLoggedIn) {
+                    
+                    if(isAdminIn) {
                         document.getElementById('admin-login-screen').style.display = 'none';
                         document.getElementById('admin-dashboard-screen').style.display = 'block';
                     } else {
@@ -583,46 +715,65 @@
                         document.getElementById('admin-dashboard-screen').style.display = 'none';
                     }
                 }
-                
-                logoClickTimer = setTimeout(() => {
-                    logoClickCount = 0;
-                }, 1000);
+                logoTimer = setTimeout(() => logoClicks = 0, 1000);
             });
 
-            // Admin Login Button
             document.getElementById('admin-login-btn').addEventListener('click', () => {
-                const adminPwd = document.getElementById('admin-password').value;
-                if(adminPwd === '00998877') {
-                    isAdminLoggedIn = true;
+                if(document.getElementById('admin-password').value === '00998877') {
+                    isAdminIn = true;
                     document.getElementById('admin-error').style.display = 'none';
                     document.getElementById('admin-login-screen').style.display = 'none';
                     document.getElementById('admin-dashboard-screen').style.display = 'block';
+                    renderAdminCodes();
                 } else {
                     document.getElementById('admin-error').style.display = 'block';
-                    document.getElementById('admin-error').style.animation = 'fadeInUp 0.3s ease';
                 }
             });
 
-            // Admin Logout Button
             document.getElementById('admin-logout-btn').addEventListener('click', () => {
-                isAdminLoggedIn = false;
+                isAdminIn = false;
                 document.getElementById('admin-password').value = '';
                 document.getElementById('admin-dashboard-screen').style.display = 'none';
                 document.getElementById('admin-login-screen').style.display = 'flex';
             });
 
-            // Delete Generated Codes (Dummy logic)
-            document.querySelectorAll('.delete-code-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    if(confirm("Are you sure you want to REVOKE this client's VIP Code? They will be locked out immediately.")) {
-                        e.currentTarget.closest('.code-row').style.opacity = '0';
-                        setTimeout(() => {
-                            e.currentTarget.closest('.code-row').style.display = 'none';
-                        }, 300);
-                    }
-                });
+            // Admin Tabs
+            document.getElementById('tab-btn-codes').addEventListener('click', (e) => {
+                e.target.classList.add('active'); document.getElementById('tab-btn-reviews').classList.remove('active');
+                document.getElementById('admin-tab-codes').style.display = 'block'; document.getElementById('admin-tab-reviews').style.display = 'none';
+            });
+            document.getElementById('tab-btn-reviews').addEventListener('click', (e) => {
+                e.target.classList.add('active'); document.getElementById('tab-btn-codes').classList.remove('active');
+                document.getElementById('admin-tab-reviews').style.display = 'block'; document.getElementById('admin-tab-codes').style.display = 'none';
             });
 
+            // Admin Search & Generate Code
+            document.getElementById('search-code-input').addEventListener('input', (e) => renderAdminCodes(e.target.value));
+            
+            document.getElementById('generate-code-btn').addEventListener('click', () => {
+                const n = document.getElementById('new-client-name').value.trim();
+                if(!n) { alert("Enter name!"); return; }
+                const code = `VIP-${n.split(' ')[0].toUpperCase()}-${Math.floor(1000+Math.random()*9000)}`;
+                savedVIPCodes.push({ client: n, code });
+                saveToStorage();
+                document.getElementById('new-client-name').value = '';
+                renderAdminCodes(document.getElementById('search-code-input').value);
+                alert(`Created: ${code}`);
+            });
+
+            // Admin Add Custom Review
+            document.getElementById('admin-add-rev-btn').addEventListener('click', () => {
+                const name = document.getElementById('admin-rev-name-input').value.trim();
+                const text = document.getElementById('admin-rev-text-input').value.trim();
+                const rating = document.getElementById('admin-rev-rating-input').value;
+                if(!name || !text) { alert("Fill all fields"); return; }
+                savedReviews.push({ id: Date.now(), name, rating: parseInt(rating), text, reply: "" });
+                saveToStorage();
+                renderReviews();
+                document.getElementById('admin-rev-name-input').value = '';
+                document.getElementById('admin-rev-text-input').value = '';
+                alert("Dummy review added successfully!");
+            });
         });
     </script>
 </body>
