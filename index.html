@@ -442,7 +442,7 @@
       { "name": "Lat Pulldown Close Grip", "target": "Lower Lats", "effect": "Back ke neeche wale hisse ko chauda karti hai. Isse lats bilkul kamar tak jude huye aur failay hue dikhte hain.", "sets": "3 Sets" },
       { "name": "Dumbbell Shrugs", "target": "Upper Traps", "effect": "Traps ko uncha aur bada banati hai. Isse T-shirt ke collar area me kandhe se lekar gardan tak bohot thick muscle dikhta hai.", "sets": "3 Sets" },
       { "name": "Reverse Pec Deck Fly", "target": "Rear Shoulder", "effect": "Kandhe ke sabse pichle hisse ko target karti hai, jisse golaakar 3D shoulder shape complete hoti hai aur posture improve hota hai.", "sets": "3 Sets" },
-      { "name": "Preacher Curls", "target": "Biceps - Long Head", "effect": "Dole me height aur peak laane ke liye isolation movement. Jab baazu mudta hai toh bicep ek tennis ball ki tarah ubhar ke aata hai.", "sets": "3 Sets" },
+      { "name": "Preacher Curls", "target": "Biceps - Long Head", "effect": "Dole me height aur peak laane ke isolation movement. Jab baazu mudta hai toh bicep ek tennis ball ki tarah ubhar ke aata hai.", "sets": "3 Sets" },
       { "name": "Barbell Bicep Curls", "target": "Biceps - Short Head", "effect": "Biceps ke front width (samne ki chaudai) ko target karta hai. Heavy load ke chalte biceps rapidly mota aur thick ho jata hai.", "sets": "3 Sets" },
       { "name": "Reverse Barbell Curls", "target": "Brachioradialis", "effect": "Forearm ke upper hisse aur biceps ke connection ko thick karti hai. Half sleeves me yaha ki details bahut eye-catching lagti hain.", "sets": "3 Sets" },
       { "name": "Y-Raises", "target": "Mid / Lower Traps", "effect": "Upper back ko dense aur majboot karti hai. Ye back pain se bachati hai aur peeth ko peeche se bohot shredded look deti hai.", "sets": "2 Sets" },
@@ -640,4 +640,188 @@
             function renderDay(dayKey) {
                 if(dayKey !== 'monday' && !isVIPUnlocked) {
                     exercisesContainer.style.display = 'none';
-                    dayHeader.style.display
+                    dayHeader.style.display = 'none';
+                    lockScreen.style.display = 'flex';
+                    return;
+                }
+
+                lockScreen.style.display = 'none';
+                exercisesContainer.style.display = 'flex';
+                dayHeader.style.display = 'block';
+
+                const data = workoutPlan[dayKey];
+                if (!data) return;
+
+                document.getElementById('day-title').innerHTML = `<i class="fa-solid fa-dumbbell" style="font-size: 0.8em; color: var(--primary-accent);"></i> ${dayKey.toUpperCase()}`;
+                document.getElementById('day-subtitle').textContent = `${data.title} ${data.focus}`;
+                exercisesContainer.innerHTML = '';
+
+                data.exercises.forEach((ex, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'exercise-card';
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    
+                    // Invisible shield over YouTube iframe is built-in with 'pointer-events: none;'
+                    card.innerHTML = `
+                        <div class="exercise-info">
+                            <h3 class="exercise-name">${ex.name}</h3>
+                            <div class="badges">
+                                <span class="badge target"><i class="fa-solid fa-bullseye"></i> ${ex.target}</span>
+                                <span class="badge sets"><i class="fa-solid fa-layer-group"></i> ${ex.sets}</span>
+                            </div>
+                            <p class="exercise-desc">
+                                <i class="fa-solid fa-bolt" style="color: var(--primary-accent); margin-right: 8px;"></i>
+                                ${ex.effect}
+                            </p>
+                        </div>
+                        <div class="exercise-visual">
+                            ${ex.video 
+                                ? (ex.video.includes('youtube') || ex.video.includes('youtu.be')
+                                    ? `<iframe width="100%" height="100%" src="${ex.video}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&playsinline=1&loop=1&playlist=${ex.video.split('/').pop().split('?')[0]}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 20px; pointer-events: none;"></iframe>`
+                                    : `<video width="100%" height="100%" autoplay loop playsinline controls style="border-radius: 20px; object-fit: cover;"><source src="${ex.video}" type="video/mp4"></video>`)
+                                : `<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(145deg, #12141f, #0b0c12); border-radius: 20px;"><span style="color: rgba(255,255,255,0.3);">Video Not Available</span></div>`
+                            }
+                        </div>
+                    `;
+                    exercisesContainer.appendChild(card);
+                });
+                
+                if(isVIPUnlocked) {
+                    document.querySelectorAll('.fa-lock').forEach(icon => {
+                        if(icon.parentElement.tagName === 'LI') {
+                            icon.className = 'fa-solid fa-unlock';
+                            icon.style.color = '#00ff88';
+                        }
+                    });
+                }
+            }
+
+            document.getElementById('unlock-btn').addEventListener('click', () => {
+                const inputPwd = document.getElementById('vip-password').value.trim();
+                if(savedVIPCodes.some(item => item.code === inputPwd)) { 
+                    isVIPUnlocked = true;
+                    document.getElementById('lock-error').style.display = 'none';
+                    lockScreen.style.transform = 'scale(0.9)';
+                    lockScreen.style.opacity = '0';
+                    setTimeout(() => renderDay(document.querySelector('.days-nav li.active').getAttribute('data-day')), 300);
+                } else {
+                    document.getElementById('lock-error').style.display = 'block';
+                    document.getElementById('lock-error').style.animation = 'fadeInUp 0.3s ease';
+                }
+            });
+
+            // --- PUBLIC REVIEWS LOGIC ---
+            renderReviews();
+            
+            if(myReviewCount >= 2) {
+                document.getElementById('public-review-box').style.display = 'none';
+                document.getElementById('pub-rev-limit-msg').style.display = 'block';
+            }
+
+            document.getElementById('pub-rev-submit').addEventListener('click', () => {
+                const name = document.getElementById('pub-rev-name').value.trim();
+                const text = document.getElementById('pub-rev-text').value.trim();
+                const rating = document.getElementById('pub-rev-rating').value;
+
+                if(!name || !text) { alert("Please fill all fields"); return; }
+                if(myReviewCount >= 2) { alert("Limit reached!"); return; }
+
+                savedReviews.push({ id: Date.now(), name, rating: parseInt(rating), text, reply: "" });
+                myReviewCount++;
+                saveToStorage();
+                renderReviews();
+                
+                if(myReviewCount >= 2) {
+                    document.getElementById('public-review-box').style.display = 'none';
+                    document.getElementById('pub-rev-limit-msg').style.display = 'block';
+                } else {
+                    document.getElementById('pub-rev-name').value = '';
+                    document.getElementById('pub-rev-text').value = '';
+                }
+            });
+
+            // --- ADMIN PANEL LOGIC ---
+            let logoClicks = 0, logoTimer = null, isAdminIn = false;
+            
+            document.getElementById('main-logo').addEventListener('click', () => {
+                logoClicks++;
+                clearTimeout(logoTimer);
+                if(logoClicks === 5) { 
+                    logoClicks = 0;
+                    views.forEach(v => v.classList.remove('active'));
+                    viewLinks.forEach(l => l.classList.remove('active'));
+                    document.getElementById('view-admin').classList.add('active');
+                    
+                    if(isAdminIn) {
+                        document.getElementById('admin-login-screen').style.display = 'none';
+                        document.getElementById('admin-dashboard-screen').style.display = 'block';
+                    } else {
+                        document.getElementById('admin-login-screen').style.display = 'flex';
+                        document.getElementById('admin-dashboard-screen').style.display = 'none';
+                    }
+                }
+                logoTimer = setTimeout(() => logoClicks = 0, 1000);
+            });
+
+            document.getElementById('admin-login-btn').addEventListener('click', () => {
+                if(document.getElementById('admin-password').value === '00998877') {
+                    isAdminIn = true;
+                    document.getElementById('admin-error').style.display = 'none';
+                    document.getElementById('admin-login-screen').style.display = 'none';
+                    document.getElementById('admin-dashboard-screen').style.display = 'block';
+                    renderAdminCodes();
+                } else {
+                    document.getElementById('admin-error').style.display = 'block';
+                }
+            });
+
+            document.getElementById('admin-logout-btn').addEventListener('click', () => {
+                isAdminIn = false;
+                document.getElementById('admin-password').value = '';
+                document.getElementById('admin-dashboard-screen').style.display = 'none';
+                document.getElementById('admin-login-screen').style.display = 'flex';
+                // Go back to home when locking
+                document.querySelector('[data-view="home"]').click(); 
+            });
+
+            // Admin Tabs
+            document.getElementById('tab-btn-codes').addEventListener('click', (e) => {
+                e.target.classList.add('active'); document.getElementById('tab-btn-reviews').classList.remove('active');
+                document.getElementById('admin-tab-codes').style.display = 'block'; document.getElementById('admin-tab-reviews').style.display = 'none';
+            });
+            document.getElementById('tab-btn-reviews').addEventListener('click', (e) => {
+                e.target.classList.add('active'); document.getElementById('tab-btn-codes').classList.remove('active');
+                document.getElementById('admin-tab-reviews').style.display = 'block'; document.getElementById('admin-tab-codes').style.display = 'none';
+            });
+
+            // Admin Search & Generate Code
+            document.getElementById('search-code-input').addEventListener('input', (e) => renderAdminCodes(e.target.value));
+            
+            document.getElementById('generate-code-btn').addEventListener('click', () => {
+                const n = document.getElementById('new-client-name').value.trim();
+                if(!n) { alert("Enter name!"); return; }
+                const code = `VIP-${n.split(' ')[0].toUpperCase()}-${Math.floor(1000+Math.random()*9000)}`;
+                savedVIPCodes.push({ client: n, code });
+                saveToStorage();
+                document.getElementById('new-client-name').value = '';
+                renderAdminCodes(document.getElementById('search-code-input').value);
+                alert(`Created: ${code}`);
+            });
+
+            // Admin Add Custom Review
+            document.getElementById('admin-add-rev-btn').addEventListener('click', () => {
+                const name = document.getElementById('admin-rev-name-input').value.trim();
+                const text = document.getElementById('admin-rev-text-input').value.trim();
+                const rating = document.getElementById('admin-rev-rating-input').value;
+                if(!name || !text) { alert("Fill all fields"); return; }
+                savedReviews.push({ id: Date.now(), name, rating: parseInt(rating), text, reply: "" });
+                saveToStorage();
+                renderReviews();
+                document.getElementById('admin-rev-name-input').value = '';
+                document.getElementById('admin-rev-text-input').value = '';
+                alert("Dummy review added successfully!");
+            });
+        });
+    </script>
+</body>
+</html>
