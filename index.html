@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -469,6 +468,18 @@
             localStorage.setItem('skfitness_my_review_count', myReviewCount.toString());
         }
 
+        // --- CLIENT VIP AUTHENTICATION LOGIC ---
+        let isVIPUnlocked = false;
+        let savedClientCode = localStorage.getItem('skfitness_client_code');
+        
+        // Smart Check: Verifies if the saved code is STILL valid in the system
+        if (savedClientCode && savedVIPCodes.some(item => item.code === savedClientCode)) {
+            isVIPUnlocked = true;
+        } else {
+            // If code was deleted by admin or is invalid, remove it and lock them out
+            localStorage.removeItem('skfitness_client_code');
+        }
+
         // --- RENDER FUNCTIONS ---
         function renderAdminCodes(searchTerm = '') {
             const listContainer = document.getElementById('active-codes-list');
@@ -576,8 +587,6 @@
         }
 
         // --- APP LOGIC ---
-        let isVIPUnlocked = false;
-
         document.addEventListener('DOMContentLoaded', () => {
             const viewLinks = document.querySelectorAll('.main-menu li');
             const views = document.querySelectorAll('.view-section');
@@ -689,6 +698,7 @@
                     exercisesContainer.appendChild(card);
                 });
                 
+                // If unlocked, turn the lock icons green
                 if(isVIPUnlocked) {
                     document.querySelectorAll('.fa-lock').forEach(icon => {
                         if(icon.parentElement.tagName === 'LI') {
@@ -701,8 +711,12 @@
 
             document.getElementById('unlock-btn').addEventListener('click', () => {
                 const inputPwd = document.getElementById('vip-password').value.trim();
+                
                 if(savedVIPCodes.some(item => item.code === inputPwd)) { 
                     isVIPUnlocked = true;
+                    // Permanently save the code to localStorage for next time
+                    localStorage.setItem('skfitness_client_code', inputPwd);
+                    
                     document.getElementById('lock-error').style.display = 'none';
                     
                     // Instantly hide lock screen and switch to exercises
