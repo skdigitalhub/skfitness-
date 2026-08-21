@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,7 +59,7 @@
         .day-header h1 { font-family: 'Outfit', sans-serif; font-size: 4rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; text-shadow: 0 0 20px rgba(255, 255, 255, 0.1); display: flex; align-items: center; gap: 15px;}
         .day-header p { font-size: 1.2rem; color: var(--primary-accent); font-weight: 500; letter-spacing: 1px; margin-bottom: 3rem;}
         
-        .exercises-container { display: flex; flex-direction: column; gap: 2rem; padding-bottom: 4rem; }
+        .exercises-container { display: flex; flex-direction: column; gap: 2rem; padding-bottom: 4rem; transition: opacity 0.3s ease; }
         .exercise-card { display: flex; background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 24px; padding: 2rem; gap: 2.5rem; transition: 0.3s ease; animation: fadeInUp 0.6s ease backwards; }
         .exercise-card:hover { transform: translateY(-5px) scale(1.01); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(112, 0, 255, 0.1); border-color: rgba(255, 255, 255, 0.15); }
         .exercise-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
@@ -70,9 +71,9 @@
         .exercise-desc { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; background: rgba(0, 0, 0, 0.2); padding: 1.5rem; border-radius: 16px; border-left: 4px solid var(--secondary-accent); }
         .exercise-visual { width: 320px; height: 320px; border-radius: 20px; background: linear-gradient(145deg, #12141f, #0b0c12); border: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; flex-shrink: 0; box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5); }
         
-        /* Premium Lock Screen - Added extra height padding and transition for smooth visibility */
-        .lock-screen-container { display: flex; justify-content: center; align-items: center; padding: 2rem 1rem; min-height: 50vh; transition: opacity 0.3s ease, transform 0.3s ease; }
-        .lock-card { background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid rgba(112, 0, 255, 0.3); border-radius: 24px; padding: 3rem; text-align: center; max-width: 450px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 40px rgba(112, 0, 255, 0.05); }
+        /* Premium Lock Screen - Simplified for Guaranteed Visibility */
+        .lock-screen-container { display: flex; justify-content: center; align-items: center; padding: 2rem 1rem; min-height: 50vh; z-index: 1000; position: relative; width: 100%; }
+        .lock-card { background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid rgba(112, 0, 255, 0.3); border-radius: 24px; padding: 3rem; text-align: center; max-width: 450px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 40px rgba(112, 0, 255, 0.05); animation: fadeInUp 0.5s ease backwards; }
         .lock-icon { font-size: 4rem; color: var(--secondary-accent); margin-bottom: 1.5rem; text-shadow: 0 0 20px rgba(112,0,255,0.5); }
         .lock-card h2 { font-family: 'Outfit', sans-serif; font-size: 2.2rem; margin-bottom: 1rem; color: #fff;}
         .lock-card p { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.5;}
@@ -82,13 +83,16 @@
         .input-group button, .admin-btn { padding: 1.2rem; border-radius: 12px; background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); color: #fff; border: none; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;}
         .input-group button:hover, .admin-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(112,0,255,0.4); }
         .error-msg { color: #ff3366 !important; margin-top: 1rem; font-weight: bold; font-size: 0.9rem !important; margin-bottom: 0 !important; display: none;}
+
         #demo-btn { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         #demo-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 15px 30px rgba(112,0,255,0.5); }
+
         /* Social Cards */
         .social-cards { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 3rem; justify-content: center;}
         .social-card { flex: 1; min-width: 250px; max-width: 300px; background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); padding: 3rem 2rem; border-radius: 24px; text-align: center; cursor: pointer; transition: 0.3s; text-decoration: none; color: white;}
         .social-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); box-shadow: 0 15px 30px rgba(0,0,0,0.3);}
         .social-card i { font-size: 4rem; margin-bottom: 1.5rem; }
+
         /* Reviews CSS */
         .review-card { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; animation: fadeInUp 0.5s backwards; }
         .review-stars { color: #ffc107; font-size: 1.2rem; margin-bottom: 10px; }
@@ -101,9 +105,11 @@
         .admin-tabs { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 1rem;}
         .admin-tab-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; padding: 0.5rem 1rem; transition: 0.3s; font-family: 'Outfit'; font-weight: bold;}
         .admin-tab-btn.active { color: #ff3366; border-bottom: 2px solid #ff3366; }
+
         .delete-btn-sm, .reply-btn-sm { background: transparent; border: none; color: rgba(255,255,255,0.2); cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease; padding: 5px; margin-right: 10px;}
         .delete-btn-sm:hover { color: #ff3366; transform: scale(1.2); }
         .reply-btn-sm:hover { color: var(--primary-accent); transform: scale(1.2); }
+
         /* =========================================
            📱 MOBILE RESPONSIVE APP MEDIA QUERIES 
            ========================================= */
@@ -141,6 +147,7 @@
             .admin-tab-btn { font-size: 0.95rem; flex: 1; padding: 0.5rem; text-align: center; }
             .code-row { flex-direction: column; gap: 1rem; align-items: flex-start !important; }
         }
+
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
@@ -151,6 +158,7 @@
     <div class="bg-base"></div>
     <div class="cursor-glow"></div>
     <i class="fa-solid fa-dumbbell gym-watermark"></i>
+
     <div class="app-container">
         <!-- Sidebar / Top Header (on Mobile) -->
         <nav class="sidebar">
@@ -167,6 +175,7 @@
                 <li data-view="contact"><i class="fa-solid fa-paper-plane"></i> Contact Me</li>
             </ul>
         </nav>
+
         <!-- Main Content -->
         <main class="main-content">
             
@@ -179,6 +188,7 @@
                     <button id="demo-btn" style="padding: 1.2rem 3rem; font-size: 1.2rem; border-radius: 50px; background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); color: #fff; border: none; cursor: pointer; font-weight: bold;">View Free Demo <i class="fa-solid fa-arrow-right" style="margin-left: 10px;"></i></button>
                 </div>
             </div>
+
             <!-- 2. WORKOUT VIEW -->
             <div id="view-workout" class="view-section">
                 <ul class="days-nav" id="days-nav">
@@ -189,13 +199,16 @@
                     <li data-day="friday"><i class="fa-regular fa-calendar-days"></i> Friday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
                     <li data-day="saturday"><i class="fa-regular fa-calendar-days"></i> Saturday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
                 </ul>
-                <header class="day-header" id="day-header" style="transition: opacity 0.3s ease;">
+
+                <header class="day-header" id="day-header">
                     <h1 id="day-title">MONDAY</h1>
                     <p id="day-subtitle">PUSH 1 (Chest, Shoulders, Triceps, Serratus, Neck)</p>
                 </header>
-                <div class="exercises-container" id="exercises-container" style="transition: opacity 0.3s ease;"></div>
-                <!-- PREMIUM LOCK SCREEN -->
-                <div id="lock-screen" class="lock-screen-container" style="display: none; transition: opacity 0.3s ease, transform 0.3s ease;">
+
+                <div class="exercises-container" id="exercises-container"></div>
+
+                <!-- PREMIUM LOCK SCREEN (Instantly displayed on locked days) -->
+                <div id="lock-screen" class="lock-screen-container" style="display: none;">
                     <div class="lock-card">
                         <i class="fa-solid fa-lock lock-icon"></i>
                         <h2>VIP Access Required</h2>
@@ -208,6 +221,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- 3. REVIEWS VIEW (PUBLIC) -->
             <div id="view-reviews" class="view-section">
                 <div style="max-width: 800px; margin: 0 auto; padding: 2rem 0;">
@@ -215,6 +229,7 @@
                         <h1 style="font-size: 3rem; font-family: 'Outfit'; margin-bottom: 1rem;"><i class="fa-solid fa-star" style="color: #ffc107;"></i> Client Success</h1>
                         <p style="color: var(--text-muted); font-size: 1.1rem;">Read honest reviews from people who have transformed their lives with this program.</p>
                     </div>
+
                     <!-- Add Review Form -->
                     <div id="public-review-box" style="background: var(--card-bg); border: 1px solid var(--glass-border); padding: 2rem; border-radius: 20px; margin-bottom: 3rem;">
                         <h3 style="margin-bottom: 1.5rem;">Leave Your Review</h3>
@@ -232,10 +247,12 @@
                     <div id="pub-rev-limit-msg" style="display:none; text-align:center; color: #ff3366; background: rgba(255,51,102,0.1); padding: 1rem; border-radius: 12px; margin-bottom: 3rem; font-weight: bold;">
                         <i class="fa-solid fa-circle-check"></i> Thank you! You have submitted the maximum allowed reviews from this device.
                     </div>
+
                     <!-- Reviews List -->
                     <div id="public-reviews-list"></div>
                 </div>
             </div>
+
             <!-- 4. CONTACT VIEW -->
             <div id="view-contact" class="view-section">
                 <div style="text-align:center; padding: 2rem 0; animation: fadeInUp 0.8s ease;">
@@ -255,10 +272,11 @@
                     </div>
                 </div>
             </div>
+
             <!-- 5. SECRET ADMIN VIEW -->
             <div id="view-admin" class="view-section">
                 <!-- Login -->
-                <div id="admin-login-screen" class="lock-screen-container" style="transition: opacity 0.3s ease, transform 0.3s ease;">
+                <div id="admin-login-screen" class="lock-screen-container">
                     <div class="lock-card" style="border-color: rgba(255, 51, 102, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 40px rgba(255, 51, 102, 0.05);">
                         <i class="fa-solid fa-user-shield lock-icon" style="color: #ff3366; text-shadow: 0 0 20px rgba(255,51,102,0.5);"></i>
                         <h2 style="color: #fff;">Admin Authentication</h2>
@@ -270,6 +288,7 @@
                         <p class="error-msg" id="admin-error">Access Denied.</p>
                     </div>
                 </div>
+
                 <!-- Dashboard -->
                 <div id="admin-dashboard-screen" style="display: none; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); padding: 3rem; border-radius: 24px; max-width: 900px; margin: 0 auto; animation: fadeInUp 0.5s ease;">
                     
@@ -280,6 +299,7 @@
                         </div>
                         <button id="admin-logout-btn" style="background: transparent; color: #a0a5ba; border: 1px solid rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 8px; cursor: pointer;"><i class="fa-solid fa-lock"></i> Lock Panel</button>
                     </div>
+
                     <!-- Admin Tabs -->
                     <div class="admin-tabs">
                         <button id="tab-btn-codes" class="admin-tab-btn active"><i class="fa-solid fa-key"></i> VIP Codes</button>
@@ -307,6 +327,7 @@
                             <div id="active-codes-list"></div>
                         </div>
                     </div>
+
                     <!-- TAB 2: REVIEWS -->
                     <div id="admin-tab-reviews" style="display: none;">
                         <div style="background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 16px; border: 1px solid var(--glass-border); margin-bottom: 2rem;">
@@ -321,15 +342,19 @@
                             <textarea id="admin-rev-text-input" class="admin-input" placeholder="Review Text..." rows="2" style="width:100%; margin-bottom:1rem;"></textarea>
                             <button id="admin-add-rev-btn" class="admin-btn" style="width: 100%;">Add to Public Page</button>
                         </div>
+
                         <div style="background: rgba(255,193,7,0.05); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(255,193,7,0.2);">
                             <h3 style="margin-bottom: 1.5rem; color: #ffc107; font-family: 'Outfit';">Manage Public Reviews</h3>
                             <div id="admin-reviews-list"></div>
                         </div>
                     </div>
+
                 </div>
             </div>
+
         </main>
     </div>
+
     <script>
         // --- DATA PAYLOAD ---
         const workoutPlan = {
@@ -425,21 +450,25 @@
     ]
   }
 };
+
         // --- LOCAL STORAGE LOGIC ---
         let savedVIPCodes = JSON.parse(localStorage.getItem('skfitness_vip_codes')) || [
             { client: "Testing Client", code: "1234567" }
         ];
+
         let savedReviews = JSON.parse(localStorage.getItem('skfitness_reviews')) || [
             { id: 1, name: "Rahul Sharma", rating: 5, text: "Bhai ka plan ekdum aag hai! Pehle week me hi pump feel ho raha hai. Videos bohot helpful hain.", reply: "Thanks Rahul! Keep pushing hard bro 🔥" },
             { id: 2, name: "Amit K.", rating: 4, text: "Worth every penny. Mujhe humesha doubt rehta tha form ka, but videos dekh kar ab perfect form me lift karta hu.", reply: "" }
         ];
         
         let myReviewCount = parseInt(localStorage.getItem('skfitness_my_review_count')) || 0;
+
         function saveToStorage() {
             localStorage.setItem('skfitness_vip_codes', JSON.stringify(savedVIPCodes));
             localStorage.setItem('skfitness_reviews', JSON.stringify(savedReviews));
             localStorage.setItem('skfitness_my_review_count', myReviewCount.toString());
         }
+
         // --- RENDER FUNCTIONS ---
         function renderAdminCodes(searchTerm = '') {
             const listContainer = document.getElementById('active-codes-list');
@@ -449,6 +478,7 @@
                 c.client.toLowerCase().includes(searchTerm.toLowerCase()) || 
                 c.code.toLowerCase().includes(searchTerm.toLowerCase())
             );
+
             if(filteredCodes.length === 0) {
                 listContainer.innerHTML = `<p style="color:var(--text-muted); text-align:center;">No codes found.</p>`;
                 return;
@@ -467,6 +497,7 @@
                 `;
                 listContainer.appendChild(row);
             });
+
             document.querySelectorAll('.delete-btn-sm').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     if(confirm("Are you sure you want to REVOKE this VIP Code?")) {
@@ -479,10 +510,12 @@
                 });
             });
         }
+
         function renderReviews() {
             const clientList = document.getElementById('public-reviews-list');
             const adminList = document.getElementById('admin-reviews-list');
             clientList.innerHTML = ''; adminList.innerHTML = '';
+
             savedReviews.slice().reverse().forEach(rev => {
                 const stars = '⭐'.repeat(rev.rating);
                 
@@ -500,6 +533,7 @@
                     </div>
                 `;
                 clientList.innerHTML += pubHtml;
+
                 // Admin View HTML
                 const admHtml = `
                     <div class="code-row" style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 10px;">
@@ -516,6 +550,7 @@
                 `;
                 adminList.innerHTML += admHtml;
             });
+
             // Admin Review Event Listeners
             document.querySelectorAll('.delete-rev-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -527,6 +562,7 @@
                     }
                 });
             });
+
             document.querySelectorAll('.reply-btn-sm').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const id = parseInt(e.currentTarget.getAttribute('data-id'));
@@ -538,8 +574,10 @@
                 });
             });
         }
+
         // --- APP LOGIC ---
         let isVIPUnlocked = false;
+
         document.addEventListener('DOMContentLoaded', () => {
             const viewLinks = document.querySelectorAll('.main-menu li');
             const views = document.querySelectorAll('.view-section');
@@ -547,70 +585,81 @@
             const exercisesContainer = document.getElementById('exercises-container');
             const dayHeader = document.getElementById('day-header');
             const lockScreen = document.getElementById('lock-screen');
+
             // Navigation
             document.getElementById('demo-btn').addEventListener('click', () => { document.querySelector('[data-view="workout"]').click(); });
+
             viewLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     viewLinks.forEach(l => l.classList.remove('active'));
                     e.currentTarget.classList.add('active');
                     views.forEach(v => v.classList.remove('active'));
                     document.getElementById(`view-${e.currentTarget.getAttribute('data-view')}`).classList.add('active');
+
                     if(e.currentTarget.getAttribute('data-view') === 'workout') {
                         renderDay(document.querySelector('.days-nav li.active').getAttribute('data-day'));
                     }
                     window.scrollTo(0,0);
                 });
             });
-            // Day Switching & Freemium Check (WITH FIXED FADE LOGIC)
+
+            // FIXED INSTANT LOCK LOGIC (Bypasses any opacity glitches)
             dayLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
+                    const targetDay = e.currentTarget.getAttribute('data-day');
+                    if (e.currentTarget.classList.contains('active')) return;
+
                     dayLinks.forEach(l => l.classList.remove('active'));
                     e.currentTarget.classList.add('active');
                     
-                    // Smoothly fade out current view
-                    exercisesContainer.style.opacity = '0';
-                    dayHeader.style.opacity = '0';
-                    lockScreen.style.opacity = '0';
-                    
-                    setTimeout(() => {
-                        renderDay(e.currentTarget.getAttribute('data-day'));
+                    if (targetDay !== 'monday' && !isVIPUnlocked) {
+                        // If locked, show lock screen INSTANTLY. No fade out/in delay.
+                        exercisesContainer.style.display = 'none';
+                        dayHeader.style.display = 'none';
                         
-                        // Wait a tiny bit for display block/flex to apply, then fade in smoothly
+                        lockScreen.style.display = 'flex';
+                        
+                        // Restart the card animation so it feels fresh
+                        const card = lockScreen.querySelector('.lock-card');
+                        card.style.animation = 'none';
+                        void card.offsetWidth; // trigger reflow
+                        card.style.animation = 'fadeInUp 0.5s ease backwards';
+                    } else {
+                        // If unlocked, fade out and load exercises smoothly
+                        exercisesContainer.style.opacity = '0';
+                        dayHeader.style.opacity = '0';
+                        lockScreen.style.display = 'none';
+                        
                         setTimeout(() => {
-                            if (exercisesContainer.style.display !== 'none') {
-                                exercisesContainer.style.opacity = '1';
-                                dayHeader.style.opacity = '1';
-                            }
-                            if (lockScreen.style.display !== 'none') {
-                                lockScreen.style.opacity = '1';
-                                lockScreen.style.transform = 'scale(1)';
-                            }
-                        }, 50);
-                        
-                    }, 300);
+                            renderDay(targetDay);
+                            void exercisesContainer.offsetWidth; // Reflow
+                            exercisesContainer.style.opacity = '1';
+                            dayHeader.style.opacity = '1';
+                        }, 300);
+                    }
                 });
             });
+
             function renderDay(dayKey) {
+                // Precaution: Ensure lock is enforced if called directly
                 if(dayKey !== 'monday' && !isVIPUnlocked) {
                     exercisesContainer.style.display = 'none';
                     dayHeader.style.display = 'none';
                     lockScreen.style.display = 'flex';
-                    
-                    // Ensure it forces visibility if rendered directly
-                    setTimeout(() => {
-                        lockScreen.style.opacity = '1';
-                        lockScreen.style.transform = 'scale(1)';
-                    }, 50);
                     return;
                 }
+
                 lockScreen.style.display = 'none';
                 exercisesContainer.style.display = 'flex';
                 dayHeader.style.display = 'block';
+
                 const data = workoutPlan[dayKey];
                 if (!data) return;
+
                 document.getElementById('day-title').innerHTML = `<i class="fa-solid fa-dumbbell" style="font-size: 0.8em; color: var(--primary-accent);"></i> ${dayKey.toUpperCase()}`;
                 document.getElementById('day-subtitle').textContent = `${data.title} ${data.focus}`;
                 exercisesContainer.innerHTML = '';
+
                 data.exercises.forEach((ex, index) => {
                     const card = document.createElement('div');
                     card.className = 'exercise-card';
@@ -649,27 +698,35 @@
                     });
                 }
             }
+
             document.getElementById('unlock-btn').addEventListener('click', () => {
                 const inputPwd = document.getElementById('vip-password').value.trim();
                 if(savedVIPCodes.some(item => item.code === inputPwd)) { 
                     isVIPUnlocked = true;
                     document.getElementById('lock-error').style.display = 'none';
-                    lockScreen.style.transform = 'scale(0.9)';
-                    lockScreen.style.opacity = '0';
+                    
+                    // Instantly hide lock screen and switch to exercises
+                    lockScreen.style.display = 'none';
+                    exercisesContainer.style.opacity = '0';
+                    dayHeader.style.opacity = '0';
+                    
+                    const currentDay = document.querySelector('.days-nav li.active').getAttribute('data-day');
+                    renderDay(currentDay);
                     
                     setTimeout(() => {
-                        renderDay(document.querySelector('.days-nav li.active').getAttribute('data-day'));
-                        // Fade in the newly unlocked content
-                        setTimeout(() => {
-                            exercisesContainer.style.opacity = '1';
-                            dayHeader.style.opacity = '1';
-                        }, 50);
-                    }, 300);
+                        exercisesContainer.style.opacity = '1';
+                        dayHeader.style.opacity = '1';
+                    }, 50);
+
                 } else {
-                    document.getElementById('lock-error').style.display = 'block';
-                    document.getElementById('lock-error').style.animation = 'fadeInUp 0.3s ease';
+                    const err = document.getElementById('lock-error');
+                    err.style.display = 'block';
+                    err.style.animation = 'none';
+                    void err.offsetWidth; // reflow to restart error shake
+                    err.style.animation = 'fadeInUp 0.3s ease';
                 }
             });
+
             // --- PUBLIC REVIEWS LOGIC ---
             renderReviews();
             
@@ -677,12 +734,15 @@
                 document.getElementById('public-review-box').style.display = 'none';
                 document.getElementById('pub-rev-limit-msg').style.display = 'block';
             }
+
             document.getElementById('pub-rev-submit').addEventListener('click', () => {
                 const name = document.getElementById('pub-rev-name').value.trim();
                 const text = document.getElementById('pub-rev-text').value.trim();
                 const rating = document.getElementById('pub-rev-rating').value;
+
                 if(!name || !text) { alert("Please fill all fields"); return; }
                 if(myReviewCount >= 2) { alert("Limit reached!"); return; }
+
                 savedReviews.push({ id: Date.now(), name, rating: parseInt(rating), text, reply: "" });
                 myReviewCount++;
                 saveToStorage();
@@ -696,6 +756,7 @@
                     document.getElementById('pub-rev-text').value = '';
                 }
             });
+
             // --- ADMIN PANEL LOGIC ---
             let logoClicks = 0, logoTimer = null, isAdminIn = false;
             
@@ -713,13 +774,12 @@
                         document.getElementById('admin-dashboard-screen').style.display = 'block';
                     } else {
                         document.getElementById('admin-login-screen').style.display = 'flex';
-                        // Force opacity fix for admin lock screen
-                        setTimeout(() => { document.getElementById('admin-login-screen').style.opacity = '1'; }, 50);
                         document.getElementById('admin-dashboard-screen').style.display = 'none';
                     }
                 }
                 logoTimer = setTimeout(() => logoClicks = 0, 1000);
             });
+
             document.getElementById('admin-login-btn').addEventListener('click', () => {
                 if(document.getElementById('admin-password').value === '00998877') {
                     isAdminIn = true;
@@ -731,6 +791,7 @@
                     document.getElementById('admin-error').style.display = 'block';
                 }
             });
+
             document.getElementById('admin-logout-btn').addEventListener('click', () => {
                 isAdminIn = false;
                 document.getElementById('admin-password').value = '';
@@ -738,6 +799,7 @@
                 document.getElementById('admin-login-screen').style.display = 'flex';
                 document.querySelector('[data-view="home"]').click(); 
             });
+
             // Admin Tabs
             document.getElementById('tab-btn-codes').addEventListener('click', (e) => {
                 e.target.classList.add('active'); document.getElementById('tab-btn-reviews').classList.remove('active');
@@ -747,6 +809,7 @@
                 e.target.classList.add('active'); document.getElementById('tab-btn-codes').classList.remove('active');
                 document.getElementById('admin-tab-reviews').style.display = 'block'; document.getElementById('admin-tab-codes').style.display = 'none';
             });
+
             // Admin Search & Generate Code
             document.getElementById('search-code-input').addEventListener('input', (e) => renderAdminCodes(e.target.value));
             
@@ -760,6 +823,7 @@
                 renderAdminCodes(document.getElementById('search-code-input').value);
                 alert(`Created: ${code}`);
             });
+
             // Admin Add Custom Review
             document.getElementById('admin-add-rev-btn').addEventListener('click', () => {
                 const name = document.getElementById('admin-rev-name-input').value.trim();
