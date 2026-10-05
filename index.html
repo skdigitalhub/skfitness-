@@ -55,8 +55,9 @@
         .days-nav li.active { background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); color: #000; font-weight: bold; transform: scale(1.05); box-shadow: 0 10px 25px rgba(0, 240, 255, 0.3); border-color: transparent; }
         .free-badge { background: #00ff88; color: #000; font-size: 0.65rem; padding: 2px 8px; border-radius: 10px; font-weight: 800; letter-spacing: 1px;}
         
+        .day-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 2rem; margin-bottom: 2rem;}
         .day-header h1 { font-family: 'Outfit', sans-serif; font-size: 4rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; text-shadow: 0 0 20px rgba(255, 255, 255, 0.1); display: flex; align-items: center; gap: 15px;}
-        .day-header p { font-size: 1.2rem; color: var(--primary-accent); font-weight: 500; letter-spacing: 1px; margin-bottom: 3rem;}
+        .day-header p { font-size: 1.2rem; color: var(--primary-accent); font-weight: 500; letter-spacing: 1px; margin-bottom: 0;}
         
         .exercises-container { display: flex; flex-direction: column; gap: 2rem; padding-bottom: 4rem; transition: opacity 0.3s ease; }
         .exercise-card { display: flex; background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 24px; padding: 2rem; gap: 2.5rem; transition: 0.3s ease; animation: fadeInUp 0.6s ease backwards; }
@@ -150,9 +151,6 @@
             .logo { margin-bottom: 0; padding-left: 0; font-size: 1.8rem; flex: 1; }
             .nav-section-title { display: none; }
             
-            #client-logout-container { padding: 0; margin-top: 0; display: none !important; }
-            .mobile-logout-btn { display: flex !important; }
-            
             .nav-links { 
                 position: fixed; bottom: 0; left: 0; width: 100%; 
                 background: rgba(20, 22, 35, 0.98); backdrop-filter: blur(20px);
@@ -183,18 +181,9 @@
             .diet-grid { grid-template-columns: 1fr; }
             
             #view-weightgain h1 { font-size: 2.5rem !important; }
-            #view-weightgain h2 { font-size: 1.4rem !important; text-align: center; }
-        }
-
-        .mobile-logout-btn {
-            display: none;
-            padding: 8px 15px; 
-            background: rgba(255,51,102,0.1); 
-            border: 1px solid #ff3366; 
-            color: #ff3366; 
-            border-radius: 8px; 
-            font-weight: bold; 
-            font-size: 0.85rem;
+            #view-weightgain h2 { font-size: 1.4rem !important; text-align: center; justify-content: center;}
+            
+            .day-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
         }
 
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -215,25 +204,15 @@
                 <i class="fa-solid fa-dumbbell"></i> <span>SKFitness</span>
             </div>
             
-            <!-- Mobile Only Logout Button (Shows next to logo on mobile) -->
-            <button class="mobile-logout-btn client-logout-action" style="display: none;"><i class="fa-solid fa-right-from-bracket"></i></button>
-
             <div class="nav-section-title"><i class="fa-solid fa-bars-staggered" style="margin-right: 5px;"></i> Main Menu</div>
             <!-- Bottom Navigation Bar (on Mobile) -->
             <ul class="nav-links main-menu" id="main-menu">
                 <li data-view="home" class="active"><i class="fa-solid fa-house"></i> Home</li>
-                <li data-view="weightgain"><i class="fa-solid fa-weight-scale"></i> Diet</li>
                 <li data-view="workout"><i class="fa-solid fa-fire"></i> Workout</li>
+                <li data-view="weightgain"><i class="fa-solid fa-weight-scale"></i> Diet</li>
                 <li data-view="reviews"><i class="fa-solid fa-star"></i> Reviews</li>
                 <li data-view="contact"><i class="fa-solid fa-paper-plane"></i> Contact</li>
             </ul>
-
-            <!-- Desktop Logout Container -->
-            <div id="client-logout-container" style="display: none; padding: 1rem 0; margin-top: auto; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem;">
-                <button class="client-logout-action" style="width: 100%; padding: 1rem; background: rgba(255,51,102,0.1); border: 1px solid #ff3366; color: #ff3366; border-radius: 12px; cursor: pointer; font-weight: bold; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px;">
-                    <i class="fa-solid fa-right-from-bracket"></i> Logout VIP
-                </button>
-            </div>
         </nav>
 
         <!-- Main Content -->
@@ -249,7 +228,45 @@
                 </div>
             </div>
 
-            <!-- 2. WEIGHT GAIN (DIET) VIEW -->
+            <!-- 2. WORKOUT VIEW -->
+            <div id="view-workout" class="view-section">
+                <ul class="days-nav" id="days-nav">
+                    <li data-day="monday" class="active"><i class="fa-regular fa-calendar-days"></i> Monday <span class="free-badge">FREE</span></li>
+                    <li data-day="tuesday"><i class="fa-regular fa-calendar-days"></i> Tuesday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
+                    <li data-day="wednesday"><i class="fa-regular fa-calendar-days"></i> Wednesday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
+                    <li data-day="thursday"><i class="fa-regular fa-calendar-days"></i> Thursday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
+                    <li data-day="friday"><i class="fa-regular fa-calendar-days"></i> Friday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
+                    <li data-day="saturday"><i class="fa-regular fa-calendar-days"></i> Saturday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
+                </ul>
+
+                <header class="day-header" id="day-header">
+                    <div>
+                        <h1 id="day-title">MONDAY</h1>
+                        <p id="day-subtitle">PUSH 1 (Chest, Shoulders, Triceps, Serratus, Neck)</p>
+                    </div>
+                    <!-- CLEAN IN-WORKOUT LOGOUT BUTTON -->
+                    <button class="client-logout-action" id="in-workout-logout-btn" style="background: rgba(255,51,102,0.1); border: 1px solid #ff3366; color: #ff3366; padding: 10px 20px; border-radius: 12px; cursor: pointer; font-weight: bold; transition: 0.3s; display: none; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-right-from-bracket"></i> Logout VIP
+                    </button>
+                </header>
+
+                <div class="exercises-container" id="exercises-container"></div>
+
+                <div id="lock-screen" class="lock-screen-container" style="display: none;">
+                    <div class="lock-card">
+                        <i class="fa-solid fa-lock lock-icon"></i>
+                        <h2>VIP Access Required</h2>
+                        <p>This workout is locked. Enter your premium VIP password to unlock the full 90-day transformation.</p>
+                        <div class="input-group">
+                            <input type="password" id="vip-password" placeholder="Enter VIP Code" style="text-align:center;">
+                            <button id="unlock-btn">Unlock Plan <i class="fa-solid fa-key" style="margin-left: 8px;"></i></button>
+                        </div>
+                        <p class="error-msg" id="lock-error">Incorrect Password. Try again or contact SKFitness.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. WEIGHT GAIN (DIET) VIEW -->
             <div id="view-weightgain" class="view-section">
                 <div style="max-width: 900px; margin: 0 auto; padding: 2rem 0;">
                     
@@ -443,38 +460,6 @@
                             </div>
                         </div>
                         
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. WORKOUT VIEW -->
-            <div id="view-workout" class="view-section">
-                <ul class="days-nav" id="days-nav">
-                    <li data-day="monday" class="active"><i class="fa-regular fa-calendar-days"></i> Monday <span class="free-badge">FREE</span></li>
-                    <li data-day="tuesday"><i class="fa-regular fa-calendar-days"></i> Tuesday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
-                    <li data-day="wednesday"><i class="fa-regular fa-calendar-days"></i> Wednesday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
-                    <li data-day="thursday"><i class="fa-regular fa-calendar-days"></i> Thursday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
-                    <li data-day="friday"><i class="fa-regular fa-calendar-days"></i> Friday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
-                    <li data-day="saturday"><i class="fa-regular fa-calendar-days"></i> Saturday <i class="fa-solid fa-lock" style="font-size:0.8em; opacity: 0.7;"></i></li>
-                </ul>
-
-                <header class="day-header" id="day-header">
-                    <h1 id="day-title">MONDAY</h1>
-                    <p id="day-subtitle">PUSH 1 (Chest, Shoulders, Triceps, Serratus, Neck)</p>
-                </header>
-
-                <div class="exercises-container" id="exercises-container"></div>
-
-                <div id="lock-screen" class="lock-screen-container" style="display: none;">
-                    <div class="lock-card">
-                        <i class="fa-solid fa-lock lock-icon"></i>
-                        <h2>VIP Access Required</h2>
-                        <p>This workout is locked. Enter your premium VIP password to unlock the full 90-day transformation.</p>
-                        <div class="input-group">
-                            <input type="password" id="vip-password" placeholder="Enter VIP Code" style="text-align:center;">
-                            <button id="unlock-btn">Unlock Plan <i class="fa-solid fa-key" style="margin-left: 8px;"></i></button>
-                        </div>
-                        <p class="error-msg" id="lock-error">Incorrect Password. Try again or contact SKFitness.</p>
                     </div>
                 </div>
             </div>
@@ -726,19 +711,16 @@
             let savedClientCode = localStorage.getItem('skfitness_client_code');
             if (savedClientCode && savedVIPCodes.some(item => item.code === savedClientCode)) {
                 isVIPUnlocked = true;
-                // Show Logout Buttons
-                document.getElementById('client-logout-container').style.display = 'block';
-                document.querySelector('.mobile-logout-btn').style.display = 'flex';
+                const logoutBtn = document.getElementById('in-workout-logout-btn');
+                if(logoutBtn) logoutBtn.style.display = 'flex';
             } else {
                 isVIPUnlocked = false;
                 localStorage.removeItem('skfitness_client_code');
-                // Hide Logout Buttons
-                document.getElementById('client-logout-container').style.display = 'none';
-                document.querySelector('.mobile-logout-btn').style.display = 'none';
+                const logoutBtn = document.getElementById('in-workout-logout-btn');
+                if(logoutBtn) logoutBtn.style.display = 'none';
             }
         }
         
-        // Check on load
         verifyVIPStatus();
 
         // Logout Action
@@ -746,9 +728,8 @@
             btn.addEventListener('click', () => {
                 if(confirm("Are you sure you want to log out of VIP mode?")) {
                     localStorage.removeItem('skfitness_client_code');
-                    verifyVIPStatus(); // update UI instantly
+                    verifyVIPStatus(); 
                     
-                    // If they are on workout page, kick them out
                     const currentActive = document.querySelector('.main-menu li.active').getAttribute('data-view');
                     if(currentActive === 'workout') {
                         document.querySelector('[data-view="home"]').click();
@@ -793,7 +774,7 @@
                         const codeToDelete = e.currentTarget.getAttribute('data-code');
                         savedVIPCodes = savedVIPCodes.filter(c => c.code !== codeToDelete);
                         saveToStorage();
-                        verifyVIPStatus(); // Instantly checks if admin deleted their own code
+                        verifyVIPStatus(); 
                         e.currentTarget.closest('.code-row').style.opacity = '0';
                         setTimeout(() => renderAdminCodes(document.getElementById('search-code-input').value), 300);
                     }
@@ -901,7 +882,6 @@
 
             viewLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
-                    // Check VIP Status every time they click a tab to catch if it was deleted
                     verifyVIPStatus();
 
                     viewLinks.forEach(l => l.classList.remove('active'));
@@ -926,7 +906,7 @@
                     
                     if (targetDay !== 'monday' && !isVIPUnlocked) {
                         exercisesContainer.style.display = 'none';
-                        dayHeader.style.display = 'none';
+                        document.querySelector('#day-header div').style.display = 'none';
                         lockScreen.style.display = 'flex';
                         
                         const card = lockScreen.querySelector('.lock-card');
@@ -935,14 +915,15 @@
                         card.style.animation = 'fadeInUp 0.5s ease backwards';
                     } else {
                         exercisesContainer.style.opacity = '0';
-                        dayHeader.style.opacity = '0';
+                        document.querySelector('#day-header div').style.opacity = '0';
                         lockScreen.style.display = 'none';
                         
                         setTimeout(() => {
                             renderDay(targetDay);
                             void exercisesContainer.offsetWidth; 
                             exercisesContainer.style.opacity = '1';
-                            dayHeader.style.opacity = '1';
+                            document.querySelector('#day-header div').style.display = 'block';
+                            document.querySelector('#day-header div').style.opacity = '1';
                         }, 300);
                     }
                 });
@@ -951,14 +932,14 @@
             function renderDay(dayKey) {
                 if(dayKey !== 'monday' && !isVIPUnlocked) {
                     exercisesContainer.style.display = 'none';
-                    dayHeader.style.display = 'none';
+                    document.querySelector('#day-header div').style.display = 'none';
                     lockScreen.style.display = 'flex';
                     return;
                 }
 
                 lockScreen.style.display = 'none';
                 exercisesContainer.style.display = 'flex';
-                dayHeader.style.display = 'block';
+                document.querySelector('#day-header div').style.display = 'block';
 
                 const data = workoutPlan[dayKey];
                 if (!data) return;
@@ -1011,19 +992,19 @@
                 
                 if(savedVIPCodes.some(item => item.code === inputPwd)) { 
                     localStorage.setItem('skfitness_client_code', inputPwd);
-                    verifyVIPStatus(); // Sets isVIPUnlocked to true and shows logout btn
+                    verifyVIPStatus(); 
                     
                     document.getElementById('lock-error').style.display = 'none';
                     lockScreen.style.display = 'none';
                     exercisesContainer.style.opacity = '0';
-                    dayHeader.style.opacity = '0';
+                    document.querySelector('#day-header div').style.opacity = '0';
                     
                     const currentDay = document.querySelector('.days-nav li.active').getAttribute('data-day');
                     renderDay(currentDay);
                     
                     setTimeout(() => {
                         exercisesContainer.style.opacity = '1';
-                        dayHeader.style.opacity = '1';
+                        document.querySelector('#day-header div').style.opacity = '1';
                     }, 50);
 
                 } else {
